@@ -109,6 +109,54 @@ router.patch('/reservations/:id/cancel', async (req, res) => {
   }
 });
 
+router.patch('/reservations/:id', async (req, res) => {
+  const { tableId, reservationDate, startTime, endTime, partySize } = req.body;
+  try {
+    // 1. Find the current reservation
+    const current = await pool.query(
+      'SELECT * FROM reservation.reservation WHERE reservation_id = $1',
+      [req.params.id]
+    );
+    if (current.rowCount === 0) {
+      return res.status(404).json({ error: 'reservation not found' });
+    }
+    const old = current.rows[0];
+    if (old.status !== 'confirmed') {
+      return res.status(400).json({ error: 'only confirmed reservations can be changed' });
+    }
+
+    // 2. Use the new value if one was sent, otherwise keep the old one
+    const newTable = tableId ?? old.table_id;
+    const newDate  = reservationDate ?? old.reservation_date;
+    const newStart = startTime ?? old.start_time;
+    const newEnd   = endTime ?? old.end_time;
+    const newSize  = partySize ?? old.party_size;
+
+    // 3. Clash check, ignoring this reservation itself
+    const clash = await pool.query(
+      `SELECT 1 FROM reservation.reservation
+       WHERE table_id = $1 AND reservation_date = $2 AND status = 'confirmed'
+         AND start_time < $4 AND end_time > $3
+         AND reservation_id <> $5`,
+      [newTable, newDate, newStart, newEnd, req.params.id]
+    );
+    if (clash.rowCount > 0) {
+      return res.status(409).json({ error: 'table is already booked at that time' });
+    }
+
+    // 4. Save the changes
+    const result = await pool.query(
+      `UPDATE reservation.reservation
+       SET table_id = $1, reservation_date = $2, start_time = $3, end_time = $4, party_size = $5
+       WHERE reservation_id = $6 RETURNING *`,
+      [newTable, newDate, newStart, newEnd, newSize, req.params.id]
+    );
+    res.json(result.rows[0]);
+  } catch (err) {
+    handleDbError(err, res);
+  }
+});
+
 // ---------- Turn database errors into clear replies ----------
 function handleDbError(err, res) {
   if (err.code === '23505') return res.status(409).json({ error: 'email already registered' });
