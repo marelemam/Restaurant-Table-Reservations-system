@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+    <title>Maria Staff Operations</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div id="toast" class="toast" aria-live="polite"></div>
+
+    <section id="loginView" class="login-view">
+        <div class="login-card">
+            <div class="brand-mark">M</div>
+
+            <h1>Staff Operations</h1>
+            <p>Restaurant reservation management dashboard</p>
+
+            <form id="loginForm">
+                <label for="username">Cognito username</label>
+                <input
+                    id="username"
+                    type="text"
+                    autocomplete="username"
+                    required
+                >
+
+                <label for="password">Password</label>
+                <input
+                    id="password"
+                    type="password"
+                    autocomplete="current-password"
+                    required
+                >
+
+                <button type="submit" class="primary-button">
+                    Sign in
+                </button>
+            </form>
+
+            <details class="token-login">
+                <summary>Use an existing access token</summary>
+
+                <label for="manualToken">Cognito access token</label>
+                <textarea
+                    id="manualToken"
+                    rows="4"
+                    placeholder="Paste the access token here"
+                ></textarea>
+
+                <button id="useTokenButton" type="button">
+                    Use token
+                </button>
+            </details>
+
+            <p id="loginStatus" class="status-message"></p>
+        </div>
+    </section>
+
+    <div id="dashboardView" class="app-shell" hidden>
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-mark small">M</div>
+
+                <div>
+                    <strong>Maria</strong>
+                    <span>Staff Operations</span>
+                </div>
+            </div>
+
+            <nav>
+                <button class="nav-button active" data-panel="overview">
+                    Overview
+                </button>
+
+                <button class="nav-button" data-panel="waitlist">
+                    Waitlist
+                </button>
+
+                <button class="nav-button" data-panel="attendance">
+                    Attendance
+                </button>
+
+                <button class="nav-button" data-panel="seating">
+                    Seating
+                </button>
+
+                <button class="nav-button" data-panel="analytics">
+                    Analytics
+                </button>
+
+                <button class="nav-button" data-panel="activity">
+                    Activity logs
+                </button>
+            </nav>
+
+            <button id="logoutButton" class="logout-button">
+                Sign out
+            </button>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div>
+                    <p class="eyebrow">Restaurant operations</p>
+                    <h1 id="pageTitle">Overview</h1>
+                </div>
+
+                <div class="user-badge">
+                    <span class="online-dot"></span>
+                    <span id="currentUser">Authenticated staff</span>
+                </div>
+            </header>
+
+            <section id="overviewPanel" class="panel active">
+                <div class="metric-grid">
+                    <article class="metric-card">
+                        <span>Waiting customers</span>
+                        <strong id="waitingMetric">0</strong>
+                    </article>
+
+                    <article class="metric-card">
+                        <span>Attendance events</span>
+                        <strong id="attendanceMetric">0</strong>
+                    </article>
+
+                    <article class="metric-card">
+                        <span>Active seating</span>
+                        <strong id="seatingMetric">0</strong>
+                    </article>
+
+                    <article class="metric-card">
+                        <span>Service status</span>
+                        <strong class="healthy-text">Online</strong>
+                    </article>
+                </div>
+
+                <article class="content-card">
+                    <div class="card-heading">
+                        <div>
+                            <h2>Cloud architecture</h2>
+                            <p>AWS services used by Maria’s contribution</p>
+                        </div>
+                    </div>
+
+                    <div class="service-grid">
+                        <span>Lambda</span>
+                        <span>API Gateway</span>
+                        <span>Cognito</span>
+                        <span>IAM</span>
+                        <span>Secrets Manager</span>
+                        <span>CloudWatch</span>
+                        <span>S3</span>
+                        <span>SQS</span>
+                        <span>SNS</span>
+                        <span>EventBridge</span>
+                    </div>
+                </article>
+            </section>
+
+            <section id="waitlistPanel" class="panel">
+                <article class="content-card">
+                    <div class="card-heading">
+                        <div>
+                            <h2>Add a walk-in</h2>
+                            <p>Create a new active waitlist entry</p>
+                        </div>
+
+                        <button id="refreshWaitlist" type="button">
+                            Refresh
+                        </button>
+                    </div>
+
+                    <form id="waitlistForm" class="form-grid">
+                        <div>
+                            <label for="customerName">Customer name</label>
+                            <input id="customerName" required>
+                        </div>
+
+                        <div>
+                            <label for="customerPhone">Phone</label>
+                            <input id="customerPhone" required>
+                        </div>
+
+                        <div>
+                            <label for="partySize">Party size</label>
+                            <input
+                                id="partySize"
+                                type="number"
+                                min="1"
+                                max="30"
+                                required
+                            >
+                        </div>
+
+                        <button type="submit" class="primary-button">
+                            Add to waitlist
+                        </button>
+                    </form>
+                </article>
+
+                <article class="content-card">
+                    <h2>Active waitlist</h2>
+
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Customer</th>
+                                    <th>Phone</th>
+                                    <th>Party</th>
+                                    <th>Wait</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="waitlistTableBody"></tbody>
+                        </table>
+                    </div>
+                </article>
+            </section>
+
+            <section id="attendancePanel" class="panel">
+                <div class="two-column-grid">
+                    <article class="content-card">
+                        <h2>Customer check-in</h2>
+
+                        <form id="checkInForm" class="stacked-form">
+                            <label for="checkInReservationId">
+                                Reservation ID
+                            </label>
+                            <input id="checkInReservationId" required>
+
+                            <label for="checkInNotes">Notes</label>
+                            <textarea id="checkInNotes" rows="3"></textarea>
+
+                            <button type="submit" class="primary-button">
+                                Record check-in
+                            </button>
+                        </form>
+                    </article>
+
+                    <article class="content-card">
+                        <h2>Record no-show</h2>
+
+                        <form id="noShowForm" class="stacked-form">
+                            <label for="noShowReservationId">
+                                Reservation ID
+                            </label>
+                            <input id="noShowReservationId" required>
+
+                            <label for="scheduledStartTime">
+                                Scheduled start
+                            </label>
+                            <input
+                                id="scheduledStartTime"
+                                type="datetime-local"
+                                required
+                            >
+
+                            <label for="noShowNotes">Notes</label>
+                            <textarea id="noShowNotes" rows="3"></textarea>
+
+                            <button type="submit" class="danger-button">
+                                Record no-show
+                            </button>
+                        </form>
+                    </article>
+                </div>
+
+                <article class="content-card">
+                    <div class="card-heading">
+                        <h2>Attendance history</h2>
+
+                        <button id="refreshAttendance" type="button">
+                            Refresh
+                        </button>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Reservation</th>
+                                    <th>Status</th>
+                                    <th>Recorded by</th>
+                                    <th>Time</th>
+                                    <th>Notes</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="attendanceTableBody"></tbody>
+                        </table>
+                    </div>
+                </article>
+            </section>
+
+            <section id="seatingPanel" class="panel">
+                <article class="content-card">
+                    <div class="card-heading">
+                        <div>
+                            <h2>Create seating session</h2>
+                            <p>Seat a reservation or waitlist customer</p>
+                        </div>
+
+                        <button id="refreshSeating" type="button">
+                            Refresh
+                        </button>
+                    </div>
+
+                    <form id="seatingForm" class="form-grid">
+                        <div>
+                            <label for="seatingSource">Customer source</label>
+                            <select id="seatingSource">
+                                <option value="reservation">
+                                    Reservation
+                                </option>
+                                <option value="waitlist">
+                                    Waitlist
+                                </option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="seatingSourceId">Source ID</label>
+                            <input id="seatingSourceId" required>
+                        </div>
+
+                        <div>
+                            <label for="tableId">Table ID</label>
+                            <input id="tableId" required>
+                        </div>
+
+                        <button type="submit" class="primary-button">
+                            Seat customer
+                        </button>
+                    </form>
+                </article>
+
+                <article class="content-card">
+                    <h2>Seating sessions</h2>
+
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Source</th>
+                                    <th>Table</th>
+                                    <th>Seated at</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="seatingTableBody"></tbody>
+                        </table>
+                    </div>
+                </article>
+            </section>
+
+            <section id="analyticsPanel" class="panel">
+                <article class="content-card">
+                    <div class="card-heading">
+                        <div>
+                            <h2>Daily operational analytics</h2>
+                            <p>Waitlist, attendance and seating performance</p>
+                        </div>
+
+                        <div class="inline-controls">
+                            <input id="analyticsDate" type="date">
+                            <button id="loadAnalytics" type="button">
+                                Load
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="analyticsContent" class="analytics-grid"></div>
+                </article>
+            </section>
+
+            <section id="activityPanel" class="panel">
+                <article class="content-card">
+                    <div class="card-heading">
+                        <div>
+                            <h2>Staff activity logs</h2>
+                            <p>Auditable staff operations</p>
+                        </div>
+
+                        <button id="refreshActivity" type="button">
+                            Refresh
+                        </button>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Staff</th>
+                                    <th>Action</th>
+                                    <th>Entity</th>
+                                    <th>Request</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="activityTableBody"></tbody>
+                        </table>
+                    </div>
+                </article>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
