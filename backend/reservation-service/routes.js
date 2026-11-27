@@ -1,5 +1,6 @@
 const express = require('express');
 const pool = require('./db');
+const { validateReservation } = require('./validation');
 const router = express.Router();
 
 // ---------- Health checks ----------
@@ -36,8 +37,9 @@ router.post('/customers', async (req, res) => {
 // ---------- Reservations ----------
 router.post('/reservations', async (req, res) => {
   const { customerId, tableId, reservationDate, startTime, endTime, partySize } = req.body;
-  if (!customerId || !tableId || !reservationDate || !startTime || !endTime || !partySize) {
-    return res.status(400).json({ error: 'all fields are required' });
+   const errors = validateReservation(req.body);
+  if (errors.length) {
+    return res.status(400).json({ errors });
   }
   try {
     // Is the table already booked at an overlapping time?
@@ -132,6 +134,19 @@ router.patch('/reservations/:id', async (req, res) => {
     const newEnd   = endTime ?? old.end_time;
     const newSize  = partySize ?? old.party_size;
 
+    // Check the updated booking with the same rules
+    const errors = validateReservation({
+      customerId: old.customer_id,
+      tableId: newTable,
+      reservationDate: newDate,
+      startTime: newStart,
+      endTime: newEnd,
+      partySize: newSize,
+    });
+    if (errors.length) {
+      return res.status(400).json({ errors });
+    }
+
     // 3. Clash check, ignoring this reservation itself
     const clash = await pool.query(
       `SELECT 1 FROM reservation.reservation
@@ -159,7 +174,7 @@ router.patch('/reservations/:id', async (req, res) => {
 
 // ---------- Turn database errors into clear replies ----------
 function handleDbError(err, res) {
-    if (err.code === '23P01') return res.status(409).json({ error: 'table is already booked at that time' });
+  
     if (err.code === '23505') return res.status(409).json({ error: 'email already registered' });
   if (err.code === '23503') return res.status(400).json({ error: 'customer does not exist' });
   if (err.code === '23514') return res.status(400).json({ error: 'invalid values (check party size and times)' });
