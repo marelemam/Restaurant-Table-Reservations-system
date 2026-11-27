@@ -1,4 +1,12 @@
 const serverless = require("serverless-http");
 const app = require("./app");
+const {
+    loadDatabaseSecret
+} = require("./config/loadDatabaseSecret");
 
-module.exports.handler = serverless(app);
+const proxyHandler = serverless(app);
+
+module.exports.handler = async (event, context) => {
+    await loadDatabaseSecret();
+    return proxyHandler(event, context);
+};
