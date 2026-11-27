@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
+ "scripts": {
   "start": "node app.js",
   "dev": "nodemon app.js",
-  "test": "jest --runInBand"
+  "test": "jest --runInBand",
+  "db:init": "node scripts/setupDatabase.js",
+  "db:seed": "node scripts/setupDatabase.js --seed"
 },
   "keywords": [],
   "author": "",
