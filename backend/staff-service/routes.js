@@ -5,6 +5,8 @@ const router = express.Router();
 const attendanceRoutes =
     require("./routes/attendanceRoutes");
 
+    const seatingRoutes = require("./routes/seatingRoutes");
+
 const waitlistRoutes = require("./routes/waitlistRoutes");
 
 router.get("/", (req, res) => {
@@ -23,5 +25,7 @@ router.get("/", (req, res) => {
 router.use("/waitlist", waitlistRoutes);
 
 router.use("/attendance", attendanceRoutes);
+
+router.use("/seating", seatingRoutes);
 
 module.exports = router;
