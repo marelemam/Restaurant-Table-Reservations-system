@@ -88,6 +88,24 @@ CREATE TABLE staff.staff_activity_logs (
     details TEXT
 );
 
+-- Enable GiST support for UUID equality
+CREATE EXTENSION IF NOT EXISTS btree_gist;
+
+-- Prevent overlapping reservations for the same table
+ALTER TABLE reservation.reservations
+ADD CONSTRAINT no_overlapping_reservations
+EXCLUDE USING gist (
+    table_id WITH =,
+    tsrange(
+        reservation_date + start_time,
+        reservation_date + end_time,
+        '[)'
+    ) WITH &&
+)
+WHERE (
+    status IN ('pending', 'confirmed', 'checked_in', 'seated')
+);
+
 -- ========== Indexes ==========
 CREATE INDEX idx_reservations_date ON reservation.reservations(reservation_date);
 CREATE INDEX idx_reservations_customer ON reservation.reservations(customer_id);

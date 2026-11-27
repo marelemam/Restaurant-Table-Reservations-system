@@ -27,7 +27,7 @@ router.get("/", requireAuth, async (req, res) => {
 // 2. Add a new table (staff only)
 router.post("/", requireAuth, requireRole("staff"), async (req, res) => {
     try {
-        const { table_number, capacity, location } = req.body;
+        const { table_number, capacity, location } = req.body || {};
 
         if (
             typeof table_number !== "string" ||
@@ -35,7 +35,14 @@ router.post("/", requireAuth, requireRole("staff"), async (req, res) => {
             table_number.length > 20 ||
             !Number.isInteger(capacity) ||
             capacity < 1 ||
-            (location && String(location).length > 100)
+            (
+    location !== undefined &&
+    location !== null &&
+    (
+        typeof location !== "string" ||
+        location.trim().length > 100
+    )
+)
         ) {
             return res.status(400).json({
                 error: "Valid table number and capacity are required"
@@ -197,7 +204,43 @@ router.get("/policies", requireAuth, async (req, res) => {
     }
 });
 
-// 7. Update booking policy (staff only)
+// 7. Get a single table by ID
+router.get("/:id", requireAuth, async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        if (!UUID_RE.test(id)) {
+            return res.status(400).json({
+                error: "Invalid table ID"
+            });
+        }
+
+        const result = await pool.query(
+            `SELECT *
+             FROM tables_cfg.restaurant_tables
+             WHERE table_id = $1`,
+            [id]
+        );
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({
+                error: "Table not found"
+            });
+        }
+
+        res.status(200).json(result.rows[0]);
+
+    } catch (error) {
+        console.error("Get table error:", error);
+
+        res.status(500).json({
+            error: "Internal server error"
+        });
+    }
+});
+
+
+// 8. Update booking policy (staff only)
 router.put("/policies/:id", requireAuth, requireRole("staff"), async (req, res) => {
     try {
         const { id } = req.params;
