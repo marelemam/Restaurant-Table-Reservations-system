@@ -159,7 +159,8 @@ router.patch('/reservations/:id', async (req, res) => {
 
 // ---------- Turn database errors into clear replies ----------
 function handleDbError(err, res) {
-  if (err.code === '23505') return res.status(409).json({ error: 'email already registered' });
+    if (err.code === '23P01') return res.status(409).json({ error: 'table is already booked at that time' });
+    if (err.code === '23505') return res.status(409).json({ error: 'email already registered' });
   if (err.code === '23503') return res.status(400).json({ error: 'customer does not exist' });
   if (err.code === '23514') return res.status(400).json({ error: 'invalid values (check party size and times)' });
   if (err.code && err.code.startsWith('22')) return res.status(400).json({ error: 'wrong data format' });

@@ -19,3 +19,12 @@ CREATE TABLE reservation.reservation (
                    CHECK (status IN ('confirmed', 'cancelled', 'completed', 'no_show')),
   CHECK (end_time > start_time)
 );
+
+CREATE EXTENSION IF NOT EXISTS btree_gist;
+
+ALTER TABLE reservation.reservation
+ADD CONSTRAINT no_overlapping_bookings
+EXCLUDE USING gist (
+  table_id WITH =,
+  tsrange(reservation_date + start_time, reservation_date + end_time) WITH &&
+) WHERE (status = 'confirmed');
