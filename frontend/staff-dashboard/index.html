@@ -7,7 +7,7 @@
         content="width=device-width, initial-scale=1"
     >
     <title>Maria Staff Operations</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=3">
 </head>
 
 <body>
@@ -112,7 +112,8 @@
 
                 <div class="user-badge">
                     <span class="online-dot"></span>
-                    <span id="currentUser">Authenticated staff</span>
+                    <span id="currentUser">Authenticated user</span>
+                    <strong id="currentRole">Staff</strong>
                 </div>
             </header>
 
@@ -369,17 +370,22 @@
                         <div>
                             <h2>Daily operational analytics</h2>
                             <p>Waitlist, attendance and seating performance</p>
+                            <p id="analyticsAccessNote"></p>
                         </div>
 
                         <div class="inline-controls">
                             <input id="analyticsDate" type="date">
+
                             <button id="loadAnalytics" type="button">
                                 Load
                             </button>
                         </div>
                     </div>
 
-                    <div id="analyticsContent" class="analytics-grid"></div>
+                    <div
+                        id="analyticsContent"
+                        class="analytics-grid"
+                    ></div>
                 </article>
             </section>
 
@@ -389,11 +395,20 @@
                         <div>
                             <h2>Staff activity logs</h2>
                             <p>Auditable staff operations</p>
+                            <p id="activityAccessNote"></p>
                         </div>
 
-                        <button id="refreshActivity" type="button">
-                            Refresh
-                        </button>
+                        <div class="inline-controls">
+                            <input
+                                id="activityStaffId"
+                                type="text"
+                                placeholder="Filter by staff ID"
+                            >
+
+                            <button id="refreshActivity" type="button">
+                                Refresh
+                            </button>
+                        </div>
                     </div>
 
                     <div class="table-wrapper">
@@ -416,6 +431,6 @@
         </main>
     </div>
 
-    <script src="app.js"></script>
+    <script src="app.js?v=3"></script>
 </body>
 </html>

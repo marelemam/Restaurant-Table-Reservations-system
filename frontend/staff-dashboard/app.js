@@ -1,8 +1,8 @@
 "use strict";
 
 const CONFIG = {
-    apiRoot:
-        "http://03901ab751.execute-api.localhost.floci.io:4566/api/staff",
+   apiRoot:
+    "http://03901ab751.execute-api.us-east-1.localhost:4566/api/staff",
 
     cognitoEndpoint: "http://localhost:4566/",
 
@@ -11,6 +11,8 @@ const CONFIG = {
 
 const state = {
     accessToken: sessionStorage.getItem("mariaStaffAccessToken"),
+    claims: {},
+    role: null,
     waitlist: [],
     attendance: [],
     seating: [],
@@ -28,6 +30,10 @@ function escapeHtml(value) {
         .replaceAll(">", "&gt;")
         .replaceAll('"', "&quot;")
         .replaceAll("'", "&#039;");
+}
+
+function todayIsoDate() {
+    return new Date().toISOString().slice(0, 10);
 }
 
 function formatDate(value) {
@@ -85,13 +91,23 @@ function extractArray(payload, possibleKeys) {
 function decodeJwt(token) {
     try {
         const encodedPayload = token.split(".")[1];
+
+        if (!encodedPayload) {
+            return {};
+        }
+
         const normalised = encodedPayload
             .replaceAll("-", "+")
             .replaceAll("_", "/");
 
+        const padded = normalised.padEnd(
+            Math.ceil(normalised.length / 4) * 4,
+            "="
+        );
+
         const payload = decodeURIComponent(
             window
-                .atob(normalised)
+                .atob(padded)
                 .split("")
                 .map((character) =>
                     `%${character
@@ -106,6 +122,68 @@ function decodeJwt(token) {
     } catch {
         return {};
     }
+}
+
+function extractGroups(claims) {
+    const groups =
+        claims["cognito:groups"] ||
+        claims.groups ||
+        [];
+
+    if (Array.isArray(groups)) {
+        return groups;
+    }
+
+    if (typeof groups === "string") {
+        return groups
+            .split(",")
+            .map((group) => group.trim())
+            .filter(Boolean);
+    }
+
+    return [];
+}
+
+function determineRole(claims) {
+    const groups = extractGroups(claims);
+
+    if (groups.includes("Admin")) {
+        return "Admin";
+    }
+
+    if (groups.includes("Staff")) {
+        return "Staff";
+    }
+
+    return null;
+}
+
+function configureRoleInterface() {
+    const isAdmin = state.role === "Admin";
+    const today = todayIsoDate();
+
+    element("currentRole").textContent = state.role;
+
+    element("analyticsDate").value = today;
+    element("analyticsDate").max = today;
+    element("analyticsDate").disabled = !isAdmin;
+
+    element("analyticsAccessNote").textContent =
+        isAdmin
+            ? "Admin access: historical dates are available."
+            : "Staff access: analytics are restricted to today.";
+
+    element("activityStaffId").hidden = !isAdmin;
+    element("activityStaffId").disabled = !isAdmin;
+
+    if (!isAdmin) {
+        element("activityStaffId").value = "";
+    }
+
+    element("activityAccessNote").textContent =
+        isAdmin
+            ? "Admin access: all staff activity can be viewed."
+            : "Staff access: only your own activity is displayed.";
 }
 
 async function apiRequest(path, options = {}) {
@@ -148,7 +226,18 @@ async function apiRequest(path, options = {}) {
             payload.details?.[0]?.msg ||
             `Request failed with status ${response.status}`;
 
-        throw new Error(message);
+        if (response.status === 401) {
+            logout();
+
+            throw new Error(
+                "Your session has expired. Please sign in again."
+            );
+        }
+
+        const error = new Error(message);
+        error.status = response.status;
+
+        throw error;
     }
 
     return payload;
@@ -186,33 +275,62 @@ async function cognitoLogin(username, password) {
 }
 
 async function activateSession(token) {
-    if (!token || token.split(".").length !== 3) {
+    const cleanToken = String(token || "").trim();
+
+    if (!cleanToken || cleanToken.split(".").length !== 3) {
         throw new Error("A valid JWT access token is required");
     }
 
-    state.accessToken = token.trim();
+    const claims = decodeJwt(cleanToken);
+
+    if (!claims.sub) {
+        throw new Error("The access token payload is invalid");
+    }
+
+    if (
+        claims.exp &&
+        Number(claims.exp) * 1000 <= Date.now()
+    ) {
+        throw new Error("The access token has expired");
+    }
+
+    const role = determineRole(claims);
+
+    if (!role) {
+        throw new Error(
+            "Staff or Admin permission is required"
+        );
+    }
+
+    state.accessToken = cleanToken;
+    state.claims = claims;
+    state.role = role;
 
     sessionStorage.setItem(
         "mariaStaffAccessToken",
         state.accessToken
     );
 
-    const claims = decodeJwt(state.accessToken);
-
     element("currentUser").textContent =
         claims.username ||
         claims["cognito:username"] ||
         claims.sub ||
-        "Authenticated staff";
+        "Authenticated user";
+
+    configureRoleInterface();
 
     element("loginView").hidden = true;
     element("dashboardView").hidden = false;
+
+    activatePanel("overview");
 
     await loadDashboard();
 }
 
 function logout() {
     state.accessToken = null;
+    state.claims = {};
+    state.role = null;
 
     sessionStorage.removeItem("mariaStaffAccessToken");
 
@@ -221,6 +339,8 @@ function logout() {
     element("password").value = "";
     element("manualToken").value = "";
     element("loginStatus").textContent = "";
+    element("currentUser").textContent = "Authenticated user";
+    element("currentRole").textContent = "";
 }
 
 function activatePanel(panelName) {
@@ -235,9 +355,7 @@ function activatePanel(panelName) {
         );
     });
 
-    const selectedPanel = element(
-        `${panelName}Panel`
-    );
+    const selectedPanel = element(`${panelName}Panel`);
 
     if (selectedPanel) {
         selectedPanel.classList.add("active");
@@ -248,7 +366,8 @@ function activatePanel(panelName) {
     );
 
     element("pageTitle").textContent =
-        selectedButton?.textContent.trim() || "Staff Operations";
+        selectedButton?.textContent.trim() ||
+        "Staff Operations";
 }
 
 /* Waitlist */
@@ -295,9 +414,18 @@ function renderWaitlist() {
 
             return `
                 <tr>
-                    <td>${escapeHtml(entry.customer_name || entry.customerName)}</td>
+                    <td>${escapeHtml(
+                        entry.customer_name ||
+                        entry.customerName
+                    )}</td>
+
                     <td>${escapeHtml(entry.phone)}</td>
-                    <td>${escapeHtml(entry.party_size || entry.partySize)}</td>
+
+                    <td>${escapeHtml(
+                        entry.party_size ||
+                        entry.partySize
+                    )}</td>
+
                     <td>
                         ${escapeHtml(
                             entry.estimated_wait_minutes ??
@@ -305,11 +433,15 @@ function renderWaitlist() {
                             "—"
                         )} min
                     </td>
+
                     <td>
-                        <span class="status-badge ${statusClass(entry.status)}">
+                        <span class="status-badge ${statusClass(
+                            entry.status
+                        )}">
                             ${escapeHtml(entry.status)}
                         </span>
                     </td>
+
                     <td>
                         <div class="table-actions">
                             <button
@@ -409,7 +541,9 @@ function renderAttendance() {
                         event.recordedAt
                     )}</td>
 
-                    <td>${escapeHtml(event.notes || "—")}</td>
+                    <td>${escapeHtml(
+                        event.notes || "—"
+                    )}</td>
                 </tr>
             `
         )
@@ -550,11 +684,17 @@ function flattenAnalytics(value, prefix = "") {
 }
 
 async function loadAnalytics() {
-    const selectedDate = element("analyticsDate").value;
+    const today = todayIsoDate();
 
-    const query = selectedDate
-        ? `?date=${encodeURIComponent(selectedDate)}`
-        : "";
+    if (state.role !== "Admin") {
+        element("analyticsDate").value = today;
+    }
+
+    const selectedDate =
+        element("analyticsDate").value || today;
+
+    const query =
+        `?date=${encodeURIComponent(selectedDate)}`;
 
     const payload = await apiRequest(
         `/analytics/daily${query}`
@@ -578,6 +718,7 @@ async function loadAnalytics() {
                                     item.label.replaceAll("_", " ")
                                 )}
                             </span>
+
                             <strong>
                                 ${escapeHtml(item.value ?? "—")}
                             </strong>
@@ -595,7 +736,23 @@ async function loadAnalytics() {
 /* Activity logs */
 
 async function loadActivity() {
-    const payload = await apiRequest("/activity");
+    const parameters = new URLSearchParams();
+
+    if (state.role === "Admin") {
+        const requestedStaffId =
+            element("activityStaffId").value.trim();
+
+        if (requestedStaffId) {
+            parameters.set("staffId", requestedStaffId);
+        }
+    }
+
+    const query = parameters.toString();
+    const path = query
+        ? `/activity?${query}`
+        : "/activity";
+
+    const payload = await apiRequest(path);
 
     state.activity = extractArray(payload, [
         "activity",
@@ -687,9 +844,10 @@ element("loginForm").addEventListener(
     async (event) => {
         event.preventDefault();
 
+        const form = event.currentTarget;
         const status = element("loginStatus");
         const submitButton =
-            event.currentTarget.querySelector("button");
+            form.querySelector("button");
 
         status.textContent = "Signing in…";
         submitButton.disabled = true;
@@ -703,6 +861,8 @@ element("loginForm").addEventListener(
             await activateSession(token);
 
             status.textContent = "";
+            element("password").value = "";
+
             showToast("Signed in successfully");
         } catch (error) {
             status.textContent = error.message;
@@ -741,6 +901,8 @@ element("waitlistForm").addEventListener(
     async (event) => {
         event.preventDefault();
 
+        const form = event.currentTarget;
+
         try {
             await apiRequest("/waitlist", {
                 method: "POST",
@@ -755,7 +917,7 @@ element("waitlistForm").addEventListener(
                 })
             });
 
-            event.target.reset();
+            form.reset();
             await loadWaitlist();
 
             showToast("Walk-in added to the waitlist");
@@ -810,6 +972,8 @@ element("checkInForm").addEventListener(
     async (event) => {
         event.preventDefault();
 
+        const form = event.currentTarget;
+
         try {
             await apiRequest("/attendance/check-ins", {
                 method: "POST",
@@ -824,7 +988,7 @@ element("checkInForm").addEventListener(
                 })
             });
 
-            event.target.reset();
+            form.reset();
             await loadAttendance();
 
             showToast("Customer checked in successfully");
@@ -838,6 +1002,8 @@ element("noShowForm").addEventListener(
     "submit",
     async (event) => {
         event.preventDefault();
+
+        const form = event.currentTarget;
 
         try {
             const scheduledValue =
@@ -858,7 +1024,7 @@ element("noShowForm").addEventListener(
                 })
             });
 
-            event.target.reset();
+            form.reset();
             await loadAttendance();
 
             showToast("No-show recorded successfully");
@@ -873,6 +1039,7 @@ element("seatingForm").addEventListener(
     async (event) => {
         event.preventDefault();
 
+        const form = event.currentTarget;
         const source = element("seatingSource").value;
         const sourceId =
             element("seatingSourceId").value.trim();
@@ -893,7 +1060,7 @@ element("seatingForm").addEventListener(
                 body: JSON.stringify(body)
             });
 
-            event.target.reset();
+            form.reset();
 
             await Promise.all([
                 loadSeating(),
@@ -1003,14 +1170,28 @@ element("refreshActivity").addEventListener(
     )
 );
 
+element("activityStaffId").addEventListener(
+    "keydown",
+    (event) => {
+        if (event.key === "Enter") {
+            event.preventDefault();
+
+            loadActivity().catch(
+                (error) => showToast(error.message, true)
+            );
+        }
+    }
+);
+
 /* Initial page state */
 
-element("analyticsDate").value =
-    new Date().toISOString().slice(0, 10);
+element("analyticsDate").value = todayIsoDate();
+element("analyticsDate").max = todayIsoDate();
 
 if (state.accessToken) {
     activateSession(state.accessToken).catch((error) => {
         logout();
+
         element("loginStatus").textContent =
             `Saved session could not be restored: ${error.message}`;
     });
