@@ -137,10 +137,6 @@ router.patch("/:id/status", requireAuth, requireRole("staff"), async (req, res) 
             return res.status(404).json({ error: "Table not found" });
         }
 
-                if (result.rows.length === 0) {
-            return res.status(404).json({ error: "Table not found" });
-        }
-
         console.log(JSON.stringify({           // ← السطر الجديد
             type: "TABLE_STATUS_CHANGED",
             userId: req.user.id,
@@ -150,7 +146,6 @@ router.patch("/:id/status", requireAuth, requireRole("staff"), async (req, res) 
 
         res.json(result.rows[0]);
 
-        res.json(result.rows[0]);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Failed to update table status" });
