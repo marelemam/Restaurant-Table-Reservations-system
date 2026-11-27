@@ -5,14 +5,29 @@ jest.mock("../db", () => ({
 
 jest.mock("../middleware/auth", () => ({
     requireStaffOrAdmin: (req, res, next) => {
+        const role =
+            req.get("x-test-role") === "Admin"
+                ? "Admin"
+                : "Staff";
+
         req.user = {
-            sub: process.env.TEST_USER_ID || "staff-test-001",
-            groups: [
-                process.env.TEST_USER_GROUP || "Staff"
-            ]
+            sub:
+                role === "Admin"
+                    ? "admin-test-001"
+                    : "staff-test-001",
+            groups: [role]
         };
 
-        next();
+        return next();
+    },
+
+    requireAdmin: (req, res, next) => {
+        req.user = {
+            sub: "admin-test-001",
+            groups: ["Admin"]
+        };
+
+        return next();
     }
 }));
 
@@ -26,9 +41,6 @@ const app = require("../app");
 describe("Staff Activity API", () => {
     beforeEach(() => {
         jest.clearAllMocks();
-
-        process.env.TEST_USER_ID = "staff-test-001";
-        process.env.TEST_USER_GROUP = "Staff";
     });
 
     test("Staff can view their own activity", async () => {
@@ -70,24 +82,26 @@ describe("Staff Activity API", () => {
             .toEqual(["staff-test-001", 50, 0]);
     });
 
-    test("Staff cannot view another staff member's activity", async () => {
-        const response = await request(app)
-            .get(
-                "/api/staff/activity?staffId=another-staff-member"
+    test(
+        "Staff cannot view another staff member's activity",
+        async () => {
+            const response = await request(app)
+                .get(
+                    "/api/staff/activity" +
+                    "?staffId=another-staff-member"
+                );
+
+            expect(response.statusCode).toBe(403);
+
+            expect(response.body.error).toBe(
+                "Staff members can only view their own activity"
             );
 
-        expect(response.statusCode).toBe(403);
-
-        expect(response.body.error).toBe(
-            "Staff members can only view their own activity"
-        );
-
-        expect(db.query).not.toHaveBeenCalled();
-    });
+            expect(db.query).not.toHaveBeenCalled();
+        }
+    );
 
     test("Admin can view all staff activity", async () => {
-        process.env.TEST_USER_GROUP = "Admin";
-
         db.query
             .mockResolvedValueOnce({
                 rows: [{ total: 2 }]
@@ -113,7 +127,8 @@ describe("Staff Activity API", () => {
             });
 
         const response = await request(app)
-            .get("/api/staff/activity");
+            .get("/api/staff/activity")
+            .set("x-test-role", "Admin");
 
         expect(response.statusCode).toBe(200);
         expect(response.body.total).toBe(2);

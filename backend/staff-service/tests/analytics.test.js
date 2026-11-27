@@ -5,14 +5,29 @@ jest.mock("../db", () => ({
 
 jest.mock("../middleware/auth", () => ({
     requireStaffOrAdmin: (req, res, next) => {
+        const role =
+            req.get("x-test-role") === "Admin"
+                ? "Admin"
+                : "Staff";
+
         req.user = {
-            sub: process.env.TEST_USER_ID || "staff-test-001",
-            groups: [
-                process.env.TEST_USER_GROUP || "Staff"
-            ]
+            sub:
+                role === "Admin"
+                    ? "admin-test-001"
+                    : "staff-test-001",
+            groups: [role]
         };
 
-        next();
+        return next();
+    },
+
+    requireAdmin: (req, res, next) => {
+        req.user = {
+            sub: "admin-test-001",
+            groups: ["Admin"]
+        };
+
+        return next();
     }
 }));
 
@@ -44,65 +59,72 @@ const analyticsRow = {
 describe("Operational Analytics API", () => {
     beforeEach(() => {
         jest.clearAllMocks();
-
-        process.env.TEST_USER_ID = "staff-test-001";
-        process.env.TEST_USER_GROUP = "Staff";
     });
 
-    test("Staff can view today's operational analytics", async () => {
-        db.query.mockResolvedValue({
-            rowCount: 1,
-            rows: [analyticsRow]
-        });
+    test(
+        "Staff can view today's operational analytics",
+        async () => {
+            db.query.mockResolvedValue({
+                rowCount: 1,
+                rows: [analyticsRow]
+            });
 
-        const response = await request(app)
-            .get("/api/staff/analytics/daily");
+            const response = await request(app)
+                .get("/api/staff/analytics/daily");
 
-        expect(response.statusCode).toBe(200);
-        expect(response.body.date).toBe(TODAY);
-        expect(response.body.role).toBe("Staff");
+            expect(response.statusCode).toBe(200);
+            expect(response.body.date).toBe(TODAY);
+            expect(response.body.role).toBe("Staff");
 
-        expect(response.body.attendance.checkedIn).toBe(4);
-        expect(response.body.attendance.noShows).toBe(1);
+            expect(
+                response.body.attendance.checkedIn
+            ).toBe(4);
 
-        expect(
-            response.body.waitlist
-                .averageEstimatedWaitMinutes
-        ).toBe(18.5);
+            expect(
+                response.body.attendance.noShows
+            ).toBe(1);
 
-        expect(
-            response.body.seating.averageDiningMinutes
-        ).toBe(62.5);
+            expect(
+                response.body.waitlist
+                    .averageEstimatedWaitMinutes
+            ).toBe(18.5);
 
-        expect(response.body.staffActions).toBe(12);
+            expect(
+                response.body.seating
+                    .averageDiningMinutes
+            ).toBe(62.5);
 
-        expect(db.query).toHaveBeenCalledWith(
-            expect.stringContaining(
-                "staff_operations.attendance_events"
-            ),
-            [TODAY]
-        );
-    });
+            expect(response.body.staffActions).toBe(12);
 
-    test("Staff cannot view historical analytics", async () => {
-        const response = await request(app)
-            .get(
-                "/api/staff/analytics/daily" +
-                "?date=2020-01-01"
+            expect(db.query).toHaveBeenCalledWith(
+                expect.stringContaining(
+                    "staff_operations.attendance_events"
+                ),
+                [TODAY]
+            );
+        }
+    );
+
+    test(
+        "Staff cannot view historical analytics",
+        async () => {
+            const response = await request(app)
+                .get(
+                    "/api/staff/analytics/daily" +
+                    "?date=2020-01-01"
+                );
+
+            expect(response.statusCode).toBe(403);
+
+            expect(response.body.error).toBe(
+                "Staff can only view today's analytics"
             );
 
-        expect(response.statusCode).toBe(403);
-
-        expect(response.body.error).toBe(
-            "Staff can only view today's analytics"
-        );
-
-        expect(db.query).not.toHaveBeenCalled();
-    });
+            expect(db.query).not.toHaveBeenCalled();
+        }
+    );
 
     test("Admin can view historical analytics", async () => {
-        process.env.TEST_USER_GROUP = "Admin";
-
         db.query.mockResolvedValue({
             rowCount: 1,
             rows: [analyticsRow]
@@ -112,7 +134,8 @@ describe("Operational Analytics API", () => {
             .get(
                 "/api/staff/analytics/daily" +
                 "?date=2020-01-01"
-            );
+            )
+            .set("x-test-role", "Admin");
 
         expect(response.statusCode).toBe(200);
         expect(response.body.date).toBe("2020-01-01");
@@ -132,6 +155,7 @@ describe("Operational Analytics API", () => {
             );
 
         expect(response.statusCode).toBe(400);
+
         expect(response.body.error).toBe(
             "Validation failed"
         );
