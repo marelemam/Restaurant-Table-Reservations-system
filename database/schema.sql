@@ -1,4 +1,4 @@
--- gen_random_uuid() موجودة في Postgres 13+ (Neon فيه)، مش محتاجين extension
+
 
 CREATE SCHEMA IF NOT EXISTS tables_cfg;     -- Mariam
 CREATE SCHEMA IF NOT EXISTS reservation;    -- Marihan
