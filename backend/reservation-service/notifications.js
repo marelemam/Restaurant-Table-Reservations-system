@@ -1,4 +1,5 @@
 const { Resend } = require('resend');
+const { logEvent, logWarn } = require('./logger');
 
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 const FROM = 'Restaurant Reservations <onboarding@resend.dev>';
@@ -12,21 +13,22 @@ function escapeHtml(text) {
 
 // Sends an email. Returns true if Resend accepted it, false if anything went wrong.
 // It never throws, so a failed email can't break a booking.
-async function sendEmail(to, subject, html) {
+// "info" is only used for logging (no email addresses in logs).
+async function sendEmail(to, subject, html, info) {
   if (!resend) {
-    console.warn('RESEND_API_KEY is missing, email not sent');
+    logWarn('EMAIL_FAILED', { ...info, reason: 'RESEND_API_KEY missing' });
     return false;
   }
   try {
     const { data, error } = await resend.emails.send({ from: FROM, to: [to], subject, html });
     if (error) {
-      console.error('Email failed:', error.message);
+      logWarn('EMAIL_FAILED', { ...info, reason: error.message });
       return false;
     }
-    console.log('Email sent:', data.id);
+    logEvent('EMAIL_SENT', { ...info, emailId: data.id });
     return true;
   } catch (err) {
-    console.error('Email failed:', err.message);
+    logWarn('EMAIL_FAILED', { ...info, reason: err.message });
     return false;
   }
 }
@@ -43,7 +45,8 @@ function sendConfirmation(customer, r) {
        <li>Time: ${r.start_time.slice(0, 5)} to ${r.end_time.slice(0, 5)}</li>
        <li>Party size: ${r.party_size}</li>
      </ul>
-     <p>See you soon!</p>`
+     <p>See you soon!</p>`,
+    { kind: 'confirmation', reservationId: r.reservation_id, customerId: r.customer_id }
   );
 }
 
@@ -53,7 +56,8 @@ function sendCancellation(customer, r) {
     `Your reservation for ${r.reservation_date} is cancelled`,
     `<p>Hi ${escapeHtml(customer.name)},</p>
      <p>Your reservation number ${r.reservation_id} on ${r.reservation_date}
-        at ${r.start_time.slice(0, 5)} has been cancelled.</p>`
+        at ${r.start_time.slice(0, 5)} has been cancelled.</p>`,
+    { kind: 'cancellation', reservationId: r.reservation_id, customerId: r.customer_id }
   );
 }
 
