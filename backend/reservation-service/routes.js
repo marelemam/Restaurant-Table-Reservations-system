@@ -2,6 +2,7 @@ const express = require('express');
 const pool = require('./db');
 const { validateReservation } = require('./validation');
 const { sendConfirmation, sendCancellation } = require('./notifications');
+const { identify } = require('./auth');
 const router = express.Router();
 
 // ---------- Health checks ----------
@@ -18,13 +19,13 @@ router.get('/db-check', async (req, res) => {
   }
 });
 
-// ---------- Customers ----------
+// ---------- Customers (registering is open to everyone) ----------
 router.post('/customers', async (req, res) => {
   const { name, email, phone } = req.body;
   if (!name || !email) {
     return res.status(400).json({ error: 'name and email are required' });
   }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return res.status(400).json({ error: 'email must look like name@example.com' });
   }
   try {
@@ -38,15 +39,28 @@ router.post('/customers', async (req, res) => {
   }
 });
 
-// ---------- Reservations ----------
+// ---------- Reservations (you must say who you are) ----------
+router.use('/reservations', identify);
+
+// Customers are limited to their own id. Staff get null, meaning "no limit".
+function ownerLimit(user) {
+  return user.role === 'customer' ? user.customerId : null;
+}
+
+// Create: customers can only book for themselves, staff can book for anyone
 router.post('/reservations', async (req, res) => {
-  const { customerId, tableId, reservationDate, startTime, endTime, partySize } = req.body;
-  const errors = validateReservation(req.body);
+  const body = { ...req.body };
+  if (req.user.role === 'customer') {
+    body.customerId = req.user.customerId;
+  }
+
+  const errors = validateReservation(body);
   if (errors.length) {
     return res.status(400).json({ errors });
   }
+  const { customerId, tableId, reservationDate, startTime, endTime, partySize } = body;
+
   try {
-    // Is the table already booked at an overlapping time?
     const clash = await pool.query(
       `SELECT 1 FROM reservation.reservation
        WHERE table_id = $1 AND reservation_date = $2 AND status = 'confirmed'
@@ -70,13 +84,16 @@ router.post('/reservations', async (req, res) => {
   }
 });
 
+// List: customers see only theirs, staff see all (or filter with ?customerId=)
 router.get('/reservations', async (req, res) => {
-  const { customerId } = req.query;
+  const filterId = req.user.role === 'customer'
+    ? req.user.customerId
+    : (req.query.customerId || null);
   try {
-    const result = customerId
+    const result = filterId
       ? await pool.query(
           'SELECT * FROM reservation.reservation WHERE customer_id = $1 ORDER BY reservation_date, start_time',
-          [customerId]
+          [filterId]
         )
       : await pool.query(
           'SELECT * FROM reservation.reservation ORDER BY reservation_date, start_time'
@@ -87,11 +104,13 @@ router.get('/reservations', async (req, res) => {
   }
 });
 
+// View one
 router.get('/reservations/:id', async (req, res) => {
   try {
     const result = await pool.query(
-      'SELECT * FROM reservation.reservation WHERE reservation_id = $1',
-      [req.params.id]
+      `SELECT * FROM reservation.reservation
+       WHERE reservation_id = $1 AND ($2::int IS NULL OR customer_id = $2)`,
+      [req.params.id, ownerLimit(req.user)]
     );
     if (result.rowCount === 0) return res.status(404).json({ error: 'reservation not found' });
     res.json(result.rows[0]);
@@ -100,12 +119,15 @@ router.get('/reservations/:id', async (req, res) => {
   }
 });
 
+// Cancel
 router.patch('/reservations/:id/cancel', async (req, res) => {
   try {
     const result = await pool.query(
       `UPDATE reservation.reservation SET status = 'cancelled'
-       WHERE reservation_id = $1 AND status = 'confirmed' RETURNING *`,
-      [req.params.id]
+       WHERE reservation_id = $1 AND status = 'confirmed'
+         AND ($2::int IS NULL OR customer_id = $2)
+       RETURNING *`,
+      [req.params.id, ownerLimit(req.user)]
     );
     if (result.rowCount === 0) {
       return res.status(404).json({ error: 'no confirmed reservation with that id' });
@@ -117,13 +139,14 @@ router.patch('/reservations/:id/cancel', async (req, res) => {
   }
 });
 
+// Modify
 router.patch('/reservations/:id', async (req, res) => {
   const { tableId, reservationDate, startTime, endTime, partySize } = req.body;
   try {
-    // 1. Find the current reservation
     const current = await pool.query(
-      'SELECT * FROM reservation.reservation WHERE reservation_id = $1',
-      [req.params.id]
+      `SELECT * FROM reservation.reservation
+       WHERE reservation_id = $1 AND ($2::int IS NULL OR customer_id = $2)`,
+      [req.params.id, ownerLimit(req.user)]
     );
     if (current.rowCount === 0) {
       return res.status(404).json({ error: 'reservation not found' });
@@ -133,14 +156,12 @@ router.patch('/reservations/:id', async (req, res) => {
       return res.status(400).json({ error: 'only confirmed reservations can be changed' });
     }
 
-    // 2. Use the new value if one was sent, otherwise keep the old one
     const newTable = tableId ?? old.table_id;
     const newDate  = reservationDate ?? old.reservation_date;
     const newStart = startTime ?? old.start_time;
     const newEnd   = endTime ?? old.end_time;
     const newSize  = partySize ?? old.party_size;
 
-    // Check the updated booking with the same rules
     const errors = validateReservation({
       customerId: old.customer_id,
       tableId: newTable,
@@ -153,7 +174,6 @@ router.patch('/reservations/:id', async (req, res) => {
       return res.status(400).json({ errors });
     }
 
-    // 3. Clash check, ignoring this reservation itself
     const clash = await pool.query(
       `SELECT 1 FROM reservation.reservation
        WHERE table_id = $1 AND reservation_date = $2 AND status = 'confirmed'
@@ -165,7 +185,6 @@ router.patch('/reservations/:id', async (req, res) => {
       return res.status(409).json({ error: 'table is already booked at that time' });
     }
 
-    // 4. Save the changes
     const result = await pool.query(
       `UPDATE reservation.reservation
        SET table_id = $1, reservation_date = $2, start_time = $3, end_time = $4, party_size = $5
