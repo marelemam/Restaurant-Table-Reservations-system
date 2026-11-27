@@ -28,13 +28,22 @@ app.use((req, res) => {
 });
 
 app.use((error, req, res, next) => {
-    console.error("Staff service error:", error);
+    console.error(
+        "Staff service error:",
+        error.stack || error
+    );
 
-    res.status(500).json({
+    const response = {
         error: "Internal server error"
-    });
-});
+    };
 
+    if (process.env.NODE_ENV !== "production") {
+        response.details = error.message;
+        response.code = error.code || null;
+    }
+
+    res.status(500).json(response);
+});
 const PORT = process.env.PORT || 3002;
 
 if (require.main === module) {

@@ -1,5 +1,9 @@
 const express = require("express");
-const { body, validationResult } = require("express-validator");
+const {
+    body,
+    param,
+    validationResult
+} = require("express-validator");
 const { randomUUID } = require("crypto");
 
 const { getPool, query } = require("../db");
@@ -172,5 +176,165 @@ router.get(
         }
     }
 );
+
+router.patch(
+    "/:id/notify",
+    requireStaffOrAdmin,
+    [
+        param("id")
+            .isUUID()
+            .withMessage("A valid waitlist ID is required")
+    ],
+    async (req, res, next) => {
+        await updateWaitlistStatus(req, res, next, {
+            newStatus: "notified",
+            allowedCurrentStatuses: ["waiting"],
+            activityAction: "WAITLIST_CUSTOMER_NOTIFIED",
+            responseMessage: "Waitlist customer marked as notified"
+        });
+    }
+);
+
+router.patch(
+    "/:id/cancel",
+    requireStaffOrAdmin,
+    [
+        param("id")
+            .isUUID()
+            .withMessage("A valid waitlist ID is required")
+    ],
+    async (req, res, next) => {
+        await updateWaitlistStatus(req, res, next, {
+            newStatus: "cancelled",
+            allowedCurrentStatuses: [
+                "waiting",
+                "notified"
+            ],
+            activityAction: "WAITLIST_ENTRY_CANCELLED",
+            responseMessage: "Waitlist entry cancelled"
+        });
+    }
+);
+
+
+async function updateWaitlistStatus(
+    req,
+    res,
+    next,
+    {
+        newStatus,
+        allowedCurrentStatuses,
+        activityAction,
+        responseMessage
+    }
+) {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        return res.status(400).json({
+            error: "Validation failed",
+            details: errors.array()
+        });
+    }
+
+    const waitlistId = req.params.id;
+    const staffId = req.user.sub;
+    const requestId = req.get("x-request-id") || randomUUID();
+
+    const client = await getPool().connect();
+
+    try {
+        await client.query("BEGIN");
+
+       const shouldSetNotifiedTime = newStatus === "notified";
+
+     const updateResult = await client.query(
+    `UPDATE staff_operations.waitlist_entries
+     SET status = $2,
+         notified_at = CASE
+             WHEN $4::BOOLEAN THEN CURRENT_TIMESTAMP
+             ELSE notified_at
+         END,
+         updated_at = CURRENT_TIMESTAMP
+     WHERE waitlist_id = $1
+       AND status = ANY($3::VARCHAR[])
+     RETURNING *`,
+    [
+        waitlistId,
+        newStatus,
+        allowedCurrentStatuses,
+        shouldSetNotifiedTime
+    ]
+);
+
+        if (updateResult.rowCount === 0) {
+            const existingResult = await client.query(
+                `
+                SELECT status
+                FROM staff_operations.waitlist_entries
+                WHERE waitlist_id = $1
+                `,
+                [waitlistId]
+            );
+
+            await client.query("ROLLBACK");
+
+            if (existingResult.rowCount === 0) {
+                return res.status(404).json({
+                    error: "Waitlist entry not found"
+                });
+            }
+
+            return res.status(409).json({
+                error:
+                    `Cannot change a ${existingResult.rows[0].status} entry to ${newStatus}`
+            });
+        }
+
+        const updatedEntry = updateResult.rows[0];
+
+        await client.query(
+            `
+            INSERT INTO staff_operations.staff_activity_logs (
+                staff_id,
+                action,
+                entity_type,
+                entity_id,
+                request_id,
+                details
+            )
+            VALUES (
+                $1,
+                $2,
+                'waitlist',
+                $3,
+                $4,
+                $5::JSONB
+            )
+            `,
+            [
+                staffId,
+                activityAction,
+                waitlistId,
+                requestId,
+                JSON.stringify({
+                    newStatus
+                })
+            ]
+        );
+
+        await client.query("COMMIT");
+
+        return res.status(200).json({
+            message: responseMessage,
+            waitlistEntry: updatedEntry
+        });
+    } catch (error) {
+        await client.query("ROLLBACK");
+        next(error);
+    } finally {
+        client.release();
+    }
+}
 
 module.exports = router;
