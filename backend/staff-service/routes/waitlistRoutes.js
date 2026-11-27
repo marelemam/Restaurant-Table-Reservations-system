@@ -4,6 +4,11 @@ const {
     param,
     validationResult
 } = require("express-validator");
+
+
+const {
+    publishStaffEvent
+} = require("../services/eventPublisher");
 const { randomUUID } = require("crypto");
 
 const { getPool, query } = require("../db");
@@ -128,6 +133,21 @@ router.post(
             );
 
             await client.query("COMMIT");
+            await publishStaffEvent(
+    "WAITLIST_ENTRY_CREATED",
+    {
+        waitlistId: createdEntry.waitlist_id,
+        customerName: createdEntry.customer_name,
+        partySize: createdEntry.party_size,
+        estimatedWaitMinutes:
+            createdEntry.estimated_wait_minutes,
+        status: createdEntry.status,
+        recordedBy: req.user?.sub || "unknown"
+    }
+);
+
+            
+            
 
             return res.status(201).json({
                 message: "Walk-in added to the waitlist",
