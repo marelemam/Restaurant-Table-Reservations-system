@@ -14,6 +14,12 @@ const { randomUUID } = require("crypto");
 const { getPool, query } = require("../db");
 const { requireStaffOrAdmin } = require("../middleware/auth");
 
+const {
+    publishNotification
+} = require("../services/notificationPublisher");
+
+
+
 const router = express.Router();
 
 router.post(
@@ -345,10 +351,27 @@ async function updateWaitlistStatus(
 
         await client.query("COMMIT");
 
-        return res.status(200).json({
-            message: responseMessage,
-            waitlistEntry: updatedEntry
-        });
+if (newStatus === "notified") {
+    await publishNotification(
+        "WAITLIST_CUSTOMER_NOTIFIED",
+        {
+            waitlistId: updatedEntry.waitlist_id,
+            customerName: updatedEntry.customer_name,
+            phone: updatedEntry.phone,
+            partySize: updatedEntry.party_size,
+            estimatedWaitMinutes:
+                updatedEntry.estimated_wait_minutes,
+            message:
+                `Your table is expected to be ready in approximately ${updatedEntry.estimated_wait_minutes} minutes.`,
+            notifiedBy: staffId
+        }
+    );
+}
+
+return res.status(200).json({
+    message: responseMessage,
+    waitlistEntry: updatedEntry
+});
     } catch (error) {
         await client.query("ROLLBACK");
         next(error);
