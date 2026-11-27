@@ -1,6 +1,7 @@
 const express = require('express');
 const pool = require('./db');
 const { validateReservation } = require('./validation');
+const { sendConfirmation, sendCancellation } = require('./notifications');
 const router = express.Router();
 
 // ---------- Health checks ----------
@@ -23,6 +24,9 @@ router.post('/customers', async (req, res) => {
   if (!name || !email) {
     return res.status(400).json({ error: 'name and email are required' });
   }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return res.status(400).json({ error: 'email must look like name@example.com' });
+  }
   try {
     const result = await pool.query(
       'INSERT INTO reservation.customer (name, email, phone) VALUES ($1, $2, $3) RETURNING *',
@@ -37,7 +41,7 @@ router.post('/customers', async (req, res) => {
 // ---------- Reservations ----------
 router.post('/reservations', async (req, res) => {
   const { customerId, tableId, reservationDate, startTime, endTime, partySize } = req.body;
-   const errors = validateReservation(req.body);
+  const errors = validateReservation(req.body);
   if (errors.length) {
     return res.status(400).json({ errors });
   }
@@ -59,7 +63,8 @@ router.post('/reservations', async (req, res) => {
        VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
       [customerId, tableId, reservationDate, startTime, endTime, partySize]
     );
-    res.status(201).json(result.rows[0]);
+    const emailSent = await notify(result.rows[0], 'confirmed');
+    res.status(201).json({ ...result.rows[0], emailSent });
   } catch (err) {
     handleDbError(err, res);
   }
@@ -105,7 +110,8 @@ router.patch('/reservations/:id/cancel', async (req, res) => {
     if (result.rowCount === 0) {
       return res.status(404).json({ error: 'no confirmed reservation with that id' });
     }
-    res.json(result.rows[0]);
+    const emailSent = await notify(result.rows[0], 'cancelled');
+    res.json({ ...result.rows[0], emailSent });
   } catch (err) {
     handleDbError(err, res);
   }
@@ -172,10 +178,27 @@ router.patch('/reservations/:id', async (req, res) => {
   }
 });
 
+// Look up the customer and send the right email. Never breaks the request.
+async function notify(reservation, type) {
+  try {
+    const c = await pool.query(
+      'SELECT name, email FROM reservation.customer WHERE customer_id = $1',
+      [reservation.customer_id]
+    );
+    if (c.rowCount === 0) return false;
+    return type === 'confirmed'
+      ? await sendConfirmation(c.rows[0], reservation)
+      : await sendCancellation(c.rows[0], reservation);
+  } catch (err) {
+    console.error('Notify failed:', err.message);
+    return false;
+  }
+}
+
 // ---------- Turn database errors into clear replies ----------
 function handleDbError(err, res) {
-  
-    if (err.code === '23505') return res.status(409).json({ error: 'email already registered' });
+  if (err.code === '23P01') return res.status(409).json({ error: 'table is already booked at that time' });
+  if (err.code === '23505') return res.status(409).json({ error: 'email already registered' });
   if (err.code === '23503') return res.status(400).json({ error: 'customer does not exist' });
   if (err.code === '23514') return res.status(400).json({ error: 'invalid values (check party size and times)' });
   if (err.code && err.code.startsWith('22')) return res.status(400).json({ error: 'wrong data format' });
