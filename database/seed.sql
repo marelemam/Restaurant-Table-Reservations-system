@@ -13,7 +13,7 @@ INSERT INTO staff_operations.attendance_events (
 )
 VALUES
 (
-    '00000000-0000-0000-0000-000000000001',
+    '00000000-0000-4000-8000-000000000001',
     'reservation-demo-001',
     'checked_in',
     'cognito-staff-demo-001',
@@ -21,7 +21,7 @@ VALUES
     'Development test check-in'
 ),
 (
-    '00000000-0000-0000-0000-000000000002',
+    '00000000-0000-4000-8000-000000000002',
     'reservation-demo-002',
     'no_show',
     'cognito-staff-demo-001',
@@ -44,7 +44,7 @@ INSERT INTO staff_operations.waitlist_entries (
 )
 VALUES
 (
-    '00000000-0000-0000-0000-000000000101',
+    '00000000-0000-4000-8000-000000000101',
     'Example Walk-in One',
     '01000000001',
     4,
@@ -56,7 +56,7 @@ VALUES
     CURRENT_TIMESTAMP
 ),
 (
-    '00000000-0000-0000-0000-000000000102',
+    '00000000-0000-4000-8000-000000000102',
     'Example Walk-in Two',
     '01000000002',
     2,
@@ -81,7 +81,7 @@ INSERT INTO staff_operations.seating_sessions (
 )
 VALUES
 (
-    '00000000-0000-0000-0000-000000000201',
+    '00000000-0000-4000-8000-000000000201',
     'reservation-demo-001',
     NULL,
     'table-demo-01',
@@ -104,7 +104,7 @@ INSERT INTO staff_operations.staff_activity_logs (
 )
 VALUES
 (
-    '00000000-0000-0000-0000-000000000301',
+    '00000000-0000-4000-8000-000000000301',
     'cognito-staff-demo-001',
     'CUSTOMER_CHECKED_IN',
     'reservation',
@@ -114,11 +114,11 @@ VALUES
     '{"source":"seed.sql","environment":"development"}'::JSONB
 ),
 (
-    '00000000-0000-0000-0000-000000000302',
+    '00000000-0000-4000-8000-000000000302',
     'cognito-staff-demo-001',
     'WAITLIST_ENTRY_CREATED',
     'waitlist',
-    '00000000-0000-0000-0000-000000000101',
+    '00000000-0000-4000-8000-000000000101',
     'seed-request-002',
     CURRENT_TIMESTAMP - INTERVAL '10 minutes',
     '{"source":"seed.sql","environment":"development"}'::JSONB
