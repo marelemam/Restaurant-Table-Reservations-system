@@ -1,9 +1,17 @@
 const {
-    CognitoJwtVerifier
+    CognitoJwtVerifier,
+    JwtVerifier
 } = require("aws-jwt-verify");
+
+const {
+    validateCognitoJwtFields
+} = require(
+    "aws-jwt-verify/cognito-verifier"
+);
 
 let verifier = null;
 let verifierConfiguration = null;
+let localJwksLoadPromise = null;
 
 function isDevelopmentBypassEnabled() {
     return (
@@ -18,30 +26,134 @@ function getDevelopmentGroup() {
         : "Staff";
 }
 
-function getCognitoVerifier() {
+function createAuthenticationError(code, message) {
+    const error = new Error(message);
+    error.code = code;
+    return error;
+}
+
+async function loadLocalJwks(
+    targetVerifier,
+    jwksUri
+) {
+    if (!localJwksLoadPromise) {
+        localJwksLoadPromise = (async () => {
+            try {
+                const response = await fetch(jwksUri);
+
+                if (!response.ok) {
+                    throw new Error(
+                        `JWKS returned HTTP ${response.status}`
+                    );
+                }
+
+                const jwks = await response.json();
+
+                if (
+                    !jwks ||
+                    !Array.isArray(jwks.keys)
+                ) {
+                    throw new Error(
+                        "Invalid JWKS response"
+                    );
+                }
+
+                targetVerifier.cacheJwks(jwks);
+            } catch (error) {
+                throw createAuthenticationError(
+                    "COGNITO_JWKS_UNAVAILABLE",
+                    "Unable to load local Cognito public keys"
+                );
+            }
+        })();
+    }
+
+    try {
+        await localJwksLoadPromise;
+    } catch (error) {
+        localJwksLoadPromise = null;
+        throw error;
+    }
+}
+
+async function getJwtVerifier() {
     const userPoolId =
         process.env.COGNITO_USER_POOL_ID;
 
     const clientId =
         process.env.COGNITO_CLIENT_ID;
 
-    if (!userPoolId || !clientId) {
-        const error = new Error(
+    const localIssuer =
+        process.env.COGNITO_ISSUER;
+
+    const localJwksUri =
+        process.env.COGNITO_JWKS_URI;
+
+    if (!clientId) {
+        throw createAuthenticationError(
+            "COGNITO_CONFIGURATION_MISSING",
             "Cognito configuration is missing"
         );
-
-        error.code =
-            "COGNITO_CONFIGURATION_MISSING";
-
-        throw error;
     }
 
-    const currentConfiguration =
-        `${userPoolId}:${clientId}`;
+    const hasLocalIssuer = Boolean(localIssuer);
+    const hasLocalJwks = Boolean(localJwksUri);
+
+    if (hasLocalIssuer !== hasLocalJwks) {
+        throw createAuthenticationError(
+            "COGNITO_CONFIGURATION_MISSING",
+            "Both the local issuer and JWKS URI are required"
+        );
+    }
+
+    if (hasLocalIssuer && hasLocalJwks) {
+        const configuration =
+            `floci:${localIssuer}:${localJwksUri}:${clientId}`;
+
+        if (
+            !verifier ||
+            verifierConfiguration !== configuration
+        ) {
+            verifier = JwtVerifier.create({
+                issuer: localIssuer,
+                audience: null,
+                jwksUri: localJwksUri,
+
+                customJwtCheck: ({ payload }) =>
+                    validateCognitoJwtFields(
+                        payload,
+                        {
+                            tokenUse: "access",
+                            clientId
+                        }
+                    )
+            });
+
+            verifierConfiguration = configuration;
+            localJwksLoadPromise = null;
+        }
+
+        await loadLocalJwks(
+            verifier,
+            localJwksUri
+        );
+
+        return verifier;
+    }
+
+    if (!userPoolId) {
+        throw createAuthenticationError(
+            "COGNITO_CONFIGURATION_MISSING",
+            "Cognito user pool ID is missing"
+        );
+    }
+
+    const configuration =
+        `aws:${userPoolId}:${clientId}`;
 
     if (
         !verifier ||
-        verifierConfiguration !== currentConfiguration
+        verifierConfiguration !== configuration
     ) {
         verifier = CognitoJwtVerifier.create({
             userPoolId,
@@ -49,8 +161,8 @@ function getCognitoVerifier() {
             clientId
         });
 
-        verifierConfiguration =
-            currentConfiguration;
+        verifierConfiguration = configuration;
+        localJwksLoadPromise = null;
     }
 
     return verifier;
@@ -92,21 +204,27 @@ async function authenticateRequest(req, res) {
     }
 
     try {
+        const activeVerifier =
+            await getJwtVerifier();
+
         const payload =
-            await getCognitoVerifier().verify(token);
+            await activeVerifier.verify(token);
 
         const cognitoGroups =
             payload["cognito:groups"];
 
         req.user = {
             sub: payload.sub,
+
             username:
                 payload.username ||
                 payload["cognito:username"] ||
                 null,
+
             groups: Array.isArray(cognitoGroups)
                 ? cognitoGroups
                 : [],
+
             scope: payload.scope || ""
         };
 
@@ -114,16 +232,18 @@ async function authenticateRequest(req, res) {
     } catch (error) {
         if (
             error.code ===
-            "COGNITO_CONFIGURATION_MISSING"
+                "COGNITO_CONFIGURATION_MISSING" ||
+            error.code ===
+                "COGNITO_JWKS_UNAVAILABLE"
         ) {
             console.error(
-                "Authentication configuration error:",
+                "Authentication service error:",
                 error.message
             );
 
             res.status(503).json({
                 error:
-                    "Authentication service is not configured"
+                    "Authentication service is unavailable"
             });
 
             return false;
@@ -131,7 +251,8 @@ async function authenticateRequest(req, res) {
 
         console.warn(
             "Cognito token verification failed:",
-            error.name
+            error.name,
+            error.message
         );
 
         res.status(401).json({
@@ -155,8 +276,7 @@ async function requireGroups(
         return;
     }
 
-    const userGroups =
-        req.user.groups || [];
+    const userGroups = req.user.groups || [];
 
     const isAllowed = userGroups.some(
         (group) => allowedGroups.includes(group)
@@ -164,9 +284,9 @@ async function requireGroups(
 
     if (!isAllowed) {
         return res.status(403).json({
-            error: `${allowedGroups.join(
-                " or "
-            )} permission required`
+            error:
+                `${allowedGroups.join(" or ")} ` +
+                "permission required"
         });
     }
 

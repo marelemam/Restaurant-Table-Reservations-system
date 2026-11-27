@@ -101,7 +101,7 @@ describe("Cognito authentication and authorization", () => {
 
         expect(res.json).toHaveBeenCalledWith({
             error:
-                "Authentication service is not configured"
+                 "Authentication service is unavailable"
         });
 
         expect(next).not.toHaveBeenCalled();
