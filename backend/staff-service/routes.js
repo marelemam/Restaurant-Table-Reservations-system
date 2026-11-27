@@ -11,6 +11,8 @@ const waitlistRoutes = require("./routes/waitlistRoutes");
 
 const activityRoutes = require("./routes/activityRoutes");
 
+const analyticsRoutes = require("./routes/analyticsRoutes");
+
 
 router.get("/", (req, res) => {
     res.status(200).json({
@@ -33,4 +35,8 @@ router.use("/seating", seatingRoutes);
 
 
 router.use("/activity", activityRoutes);
+
+router.use("/analytics", analyticsRoutes);
+
+
 module.exports = router;
