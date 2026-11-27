@@ -2,6 +2,8 @@ const express = require("express");
 
 const router = express.Router();
 
+const waitlistRoutes = require("./routes/waitlistRoutes");
+
 router.get("/", (req, res) => {
     res.status(200).json({
         service: "staff-operations",
@@ -14,5 +16,7 @@ router.get("/", (req, res) => {
         ]
     });
 });
+
+router.use("/waitlist", waitlistRoutes);
 
 module.exports = router;
