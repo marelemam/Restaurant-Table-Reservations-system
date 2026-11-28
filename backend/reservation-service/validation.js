@@ -35,7 +35,14 @@ function validateReservation(r) {
 
   // 1. Format checks
   if (!Number.isInteger(customerId) || customerId < 1) errors.push('customerId must be a positive whole number');
-  if (!Number.isInteger(tableId) || tableId < 1) errors.push('tableId must be a positive whole number');
+  //////
+  const UUID_REGEX =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+  if (typeof tableId !== 'string' || !UUID_REGEX.test(tableId)) {
+    errors.push('tableId must be a valid UUID');
+  }
+  /////
   if (!isRealDate(reservationDate)) errors.push('reservationDate must be a real date like 2026-12-01');
   if (!isTime(startTime)) errors.push('startTime must look like 19:00');
   if (!isTime(endTime)) errors.push('endTime must look like 21:00');
