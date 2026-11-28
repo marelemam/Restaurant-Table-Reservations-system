@@ -406,6 +406,18 @@ textarea {
     font-size: 1.2rem !important;
 }
 
+.status-unavailable {
+    color: var(--danger);
+    font-size: 1.2rem !important;
+}
+
+.metric-card small {
+    color: var(--muted);
+    display: block;
+    font-size: 0.75rem;
+    margin-top: 0.35rem;
+}
+
 .service-grid {
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));

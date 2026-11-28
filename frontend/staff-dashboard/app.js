@@ -1,13 +1,13 @@
 "use strict";
 
-const CONFIG = {
-   apiRoot:
-    "http://03901ab751.execute-api.us-east-1.localhost:4566/api/staff",
-
-    cognitoEndpoint: "http://localhost:4566/",
-
-    cognitoClientId: "e8dcd01480564525949aa19fcc"
-};
+const CONFIG = Object.freeze({
+    apiRoot: "",
+    healthUrl: "",
+    cognitoEndpoint: "",
+    cognitoClientId: "",
+    k6StatusUrl: "http://localhost:6565/v1/status",
+    ...(window.MARIA_STAFF_CONFIG || {})
+});
 
 const state = {
     accessToken: sessionStorage.getItem("mariaStaffAccessToken"),
@@ -16,7 +16,8 @@ const state = {
     waitlist: [],
     attendance: [],
     seating: [],
-    activity: []
+    activity: [],
+    vuTimer: null
 };
 
 function element(id) {
@@ -68,6 +69,75 @@ function showToast(message, isError = false) {
     showToast.timer = window.setTimeout(() => {
         toast.className = "toast";
     }, 3500);
+}
+
+async function loadServiceStatus() {
+    const statusElement = element("serviceStatusMetric");
+
+    if (!CONFIG.healthUrl) {
+        statusElement.textContent = "Not configured";
+        statusElement.className = "status-unavailable";
+        return;
+    }
+
+    try {
+        const response = await fetch(CONFIG.healthUrl, {
+            cache: "no-store"
+        });
+
+        if (!response.ok) {
+            throw new Error(`Health check returned ${response.status}`);
+        }
+
+        statusElement.textContent = "Online";
+        statusElement.className = "healthy-text";
+    } catch {
+        statusElement.textContent = "Unavailable";
+        statusElement.className = "status-unavailable";
+    }
+}
+
+async function loadK6Status() {
+    const metric = element("activeVuMetric");
+    const status = element("vuStatusText");
+
+    if (!CONFIG.k6StatusUrl) {
+        metric.textContent = "—";
+        status.textContent = "k6 monitoring disabled";
+        return;
+    }
+
+    try {
+        const response = await fetch(CONFIG.k6StatusUrl, {
+            cache: "no-store"
+        });
+
+        if (!response.ok) {
+            throw new Error("k6 status unavailable");
+        }
+
+        const payload = await response.json();
+        const attributes = payload?.data?.attributes || {};
+        const currentVus = Number(attributes.vus || 0);
+        const maximumVus = Number(
+            attributes["vus-max"] ?? attributes.vusMax ?? 0
+        );
+
+        metric.textContent = String(currentVus);
+        status.textContent = attributes.running
+            ? `Running · configured maximum ${maximumVus}`
+            : "k6 is ready but no test is running";
+    } catch {
+        metric.textContent = "—";
+        status.textContent = "No local test detected";
+    }
+}
+
+function startStatusMonitoring() {
+    window.clearInterval(state.vuTimer);
+    loadServiceStatus();
+    loadK6Status();
+    state.vuTimer = window.setInterval(loadK6Status, 1000);
 }
 
 function extractArray(payload, possibleKeys) {
@@ -187,6 +257,10 @@ function configureRoleInterface() {
 }
 
 async function apiRequest(path, options = {}) {
+    if (!CONFIG.apiRoot) {
+        throw new Error("Staff API endpoint is not configured");
+    }
+
     if (!state.accessToken) {
         throw new Error("Authentication required");
     }
@@ -244,6 +318,10 @@ async function apiRequest(path, options = {}) {
 }
 
 async function cognitoLogin(username, password) {
+    if (!CONFIG.cognitoEndpoint || !CONFIG.cognitoClientId) {
+        throw new Error("Cognito login is not configured");
+    }
+
     const response = await fetch(CONFIG.cognitoEndpoint, {
         method: "POST",
         headers: {
@@ -324,10 +402,15 @@ async function activateSession(token) {
 
     activatePanel("overview");
 
+    startStatusMonitoring();
+
     await loadDashboard();
 }
 
 function logout() {
+    window.clearInterval(state.vuTimer);
+    state.vuTimer = null;
+
     state.accessToken = null;
     state.claims = {};
     state.role = null;

@@ -136,7 +136,13 @@
 
                     <article class="metric-card">
                         <span>Service status</span>
-                        <strong class="healthy-text">Online</strong>
+                        <strong id="serviceStatusMetric">Checking…</strong>
+                    </article>
+
+                    <article class="metric-card">
+                        <span>Active k6 VUs</span>
+                        <strong id="activeVuMetric">—</strong>
+                        <small id="vuStatusText">No local test detected</small>
                     </article>
                 </div>
 
@@ -431,6 +437,7 @@
         </main>
     </div>
 
-    <script src="app.js?v=3"></script>
+    <script src="config.js?v=4"></script>
+    <script src="app.js?v=4"></script>
 </body>
 </html>

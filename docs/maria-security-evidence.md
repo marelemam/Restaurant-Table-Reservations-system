@@ -63,7 +63,7 @@ The Staff Operations Jest suite verifies authentication, validation, workflows a
 Latest result:
 
 - Test suites: 8 passed
-- Tests: 38 passed
+- Tests: 40 passed
 - Failed tests: 0
 
 ## 6. Cloud Security Controls
