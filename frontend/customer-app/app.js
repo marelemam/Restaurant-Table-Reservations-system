@@ -173,31 +173,18 @@ async function apiRequest(path, options = {}) {
 
 /* ---------- Signing in ---------- */
 
+// Your reservation service signs in with Cognito on the customer's behalf
+// (browsers can't call Cognito on Floci directly).
 async function cognitoLogin(username, password) {
-    if (!CONFIG.cognitoEndpoint || !CONFIG.cognitoClientId) {
-        throw new Error("Sign-in isn't set up yet. Use test sign-in for now.");
-    }
-
-    const response = await fetch(CONFIG.cognitoEndpoint, {
+    const result = await apiRequest("/auth/login", {
         method: "POST",
-        headers: {
-            "Content-Type": "application/x-amz-json-1.1",
-            "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth"
-        },
-        body: JSON.stringify({
-            AuthFlow: "USER_PASSWORD_AUTH",
-            ClientId: CONFIG.cognitoClientId,
-            AuthParameters: { USERNAME: username, PASSWORD: password }
-        })
+        body: JSON.stringify({ username, password })
     });
-
-    const payload = await response.json();
-    if (!response.ok || !payload.AuthenticationResult?.AccessToken) {
-        throw new Error(payload.message || payload.Message || "Sign-in failed");
+    if (!result.idToken) {
+        throw new Error("Sign-in failed");
     }
-    return payload.AuthenticationResult.AccessToken;
+    return result.idToken;
 }
-
 function startSession(session) {
     state.session = session;
     sessionStorage.setItem(SESSION_KEY, JSON.stringify(session));

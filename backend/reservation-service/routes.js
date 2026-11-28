@@ -5,7 +5,11 @@ const { sendConfirmation, sendCancellation } = require('./notifications');
 const { identify } = require('./auth');
 const { logEvent, logWarn } = require('./logger');
 const tables = require('./tablesClient');
+const { registerLogin } = require('./loginRoute');
 const router = express.Router();
+
+// Sign-in on behalf of the customer app (POST /auth/login)
+registerLogin(router);
 
 // ---------- Health checks ----------
 router.get('/health', (req, res) => {
