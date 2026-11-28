@@ -25,7 +25,7 @@ router.get("/", requireAuth, async (req, res) => {
 });
 
 // 2. Add a new table (staff only)
-router.post("/", requireAuth, requireRole("staff"), async (req, res) => {
+router.post("/", requireAuth, requireRole("staff", "admin"), async (req, res) => {
     try {
         const { table_number, capacity, location } = req.body || {};
 
@@ -68,7 +68,7 @@ router.post("/", requireAuth, requireRole("staff"), async (req, res) => {
 });
 
 // 3. Update table information (staff only)
-router.put("/:id", requireAuth, requireRole("staff"), async (req, res) => {
+router.put("/:id", requireAuth, requireRole("staff", "admin"), async (req, res) => {
     try {
         const { id } = req.params;
         const { table_number, capacity, location } = req.body || {};
@@ -115,7 +115,7 @@ router.put("/:id", requireAuth, requireRole("staff"), async (req, res) => {
 });
 
 // 4. Update table operational status (staff only)
-router.patch("/:id/status", requireAuth, requireRole("staff"), async (req, res) => {
+router.patch("/:id/status", requireAuth, requireRole("staff", "admin"), async (req, res) => {
     try {
         const { id } = req.params;
         const { operational_status } = req.body || {};
@@ -241,7 +241,7 @@ router.get("/:id", requireAuth, async (req, res) => {
 
 
 // 8. Update booking policy (staff only)
-router.put("/policies/:id", requireAuth, requireRole("staff"), async (req, res) => {
+router.put("/policies/:id", requireAuth, requireRole("staff", "admin"), async (req, res) => {
     try {
         const { id } = req.params;
         const { max_duration, preparation_buffer } = req.body || {};

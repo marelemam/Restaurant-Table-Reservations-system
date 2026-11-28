@@ -100,12 +100,27 @@ async function requireAuth(req, res, next) {
     }
     try {
         const claims = await verifyToken(match[1]);
-        const groups = claims["cognito:groups"] || [];
+        const rawGroups = claims["cognito:groups"] || [];
+
+        const groups = (
+            Array.isArray(rawGroups)
+                ? rawGroups
+                : [rawGroups]
+        ).map((group) => String(group).toLowerCase());
+
+        let role = "customer";
+
+        if (groups.includes("admin")) {
+            role = "admin";
+        } else if (groups.includes("staff")) {
+            role = "staff";
+        }
+
         req.user = {
             id: claims.sub,
             email: claims.email || null,
-            // الافتراضي customer. staff لازم تكون في group اسمها staff
-            role: groups.includes("staff") ? "staff" : "customer"
+            role,
+            groups
         };
         return next();
     } catch (err) {
