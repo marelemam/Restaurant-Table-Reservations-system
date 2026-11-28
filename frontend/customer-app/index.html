@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Book a Table</title>
+    <link rel="stylesheet" href="styles.css?v=1">
+</head>
+
+<body>
+    <div id="toast" class="toast" aria-live="polite"></div>
+
+    <!-- ===== Sign in ===== -->
+    <section id="loginView" class="login-view">
+        <div class="login-card">
+            <div class="brand-mark">R</div>
+
+            <h1>Book a Table</h1>
+            <p>Reserve, change or cancel your restaurant booking</p>
+
+            <form id="loginForm">
+                <label for="username">Username</label>
+                <input id="username" type="text" autocomplete="username" required>
+
+                <label for="password">Password</label>
+                <input id="password" type="password" autocomplete="current-password" required>
+
+                <button type="submit" class="primary-button">Sign in</button>
+            </form>
+
+            <div id="testModeBox" hidden>
+                <p class="login-divider">
+                    Test sign-in <span class="test-mode-tag">local only</span>
+                </p>
+
+                <form id="testLoginForm" class="stacked-form">
+                    <label for="testCustomerId">Customer number</label>
+                    <input id="testCustomerId" type="number" min="1" required>
+                    <button type="submit" class="primary-button">Continue as this customer</button>
+                </form>
+
+                <details class="token-login">
+                    <summary>New customer? Register</summary>
+
+                    <form id="registerForm" class="stacked-form">
+                        <label for="registerName">Full name</label>
+                        <input id="registerName" maxlength="100" required>
+
+                        <label for="registerEmail">Email</label>
+                        <input id="registerEmail" type="email" maxlength="255" required>
+
+                        <label for="registerPhone">Phone</label>
+                        <input id="registerPhone" maxlength="20">
+
+                        <button type="submit" class="primary-button">Register and continue</button>
+                    </form>
+                </details>
+            </div>
+
+            <p id="loginStatus" class="status-message"></p>
+        </div>
+    </section>
+
+    <!-- ===== App ===== -->
+    <div id="appView" class="app-shell" hidden>
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-mark small">R</div>
+                <div>
+                    <strong>Reservations</strong>
+                    <span>Customer area</span>
+                </div>
+            </div>
+
+            <nav>
+                <button class="nav-button active" data-panel="book">Book a table</button>
+                <button class="nav-button" data-panel="mine">My reservations</button>
+            </nav>
+
+            <button id="logoutButton" class="logout-button">Sign out</button>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div>
+                    <p class="eyebrow">Restaurant reservations</p>
+                    <h1 id="pageTitle">Book a table</h1>
+                </div>
+
+                <div class="user-badge">
+                    <span class="online-dot"></span>
+                    <span id="currentUser">Customer</span>
+                    <strong>Customer</strong>
+                </div>
+            </header>
+
+            <!-- Book a table -->
+            <section id="bookPanel" class="panel active">
+                <article class="content-card">
+                    <div class="card-heading">
+                        <div>
+                            <h2>New reservation</h2>
+                            <p id="bookingRules">Pick a date, time and party size</p>
+                        </div>
+                    </div>
+
+                    <form id="bookingForm" class="booking-grid">
+                        <div>
+                            <label for="bookDate">Date</label>
+                            <input id="bookDate" type="date" required>
+                        </div>
+
+                        <div>
+                            <label for="bookStart">From</label>
+                            <input id="bookStart" type="time" step="900" value="19:00" required>
+                        </div>
+
+                        <div>
+                            <label for="bookEnd">Until</label>
+                            <input id="bookEnd" type="time" step="900" value="21:00" required>
+                        </div>
+
+                        <div>
+                            <label for="bookParty">People</label>
+                            <input id="bookParty" type="number" min="1" max="20" value="2" required>
+                        </div>
+
+                        <div>
+                            <label for="bookTable">Table number</label>
+                            <input id="bookTable" type="number" min="1" required>
+                        </div>
+
+                        <button type="submit" class="primary-button">Book</button>
+                    </form>
+
+                    <p class="form-note">
+                        You'll get a confirmation email once your table is booked.
+                    </p>
+                </article>
+            </section>
+
+            <!-- My reservations -->
+            <section id="minePanel" class="panel">
+                <div class="metric-grid three">
+                    <article class="metric-card">
+                        <span>Upcoming bookings</span>
+                        <strong id="upcomingMetric">0</strong>
+                    </article>
+
+                    <article class="metric-card">
+                        <span>Next booking</span>
+                        <strong id="nextMetric">—</strong>
+                    </article>
+
+                    <article class="metric-card">
+                        <span>Service status</span>
+                        <strong id="serviceStatusMetric">Checking…</strong>
+                    </article>
+                </div>
+
+                <article id="editCard" class="content-card" hidden>
+                    <div class="card-heading">
+                        <div>
+                            <h2>Change reservation <span id="editLabel"></span></h2>
+                            <p>Update any of the details below</p>
+                        </div>
+                        <button id="closeEdit" type="button">Close</button>
+                    </div>
+
+                    <form id="editForm" class="booking-grid">
+                        <div>
+                            <label for="editDate">Date</label>
+                            <input id="editDate" type="date" required>
+                        </div>
+
+                        <div>
+                            <label for="editStart">From</label>
+                            <input id="editStart" type="time" step="900" required>
+                        </div>
+
+                        <div>
+                            <label for="editEnd">Until</label>
+                            <input id="editEnd" type="time" step="900" required>
+                        </div>
+
+                        <div>
+                            <label for="editParty">People</label>
+                            <input id="editParty" type="number" min="1" max="20" required>
+                        </div>
+
+                        <button type="submit" class="primary-button">Save changes</button>
+                    </form>
+                </article>
+
+                <article class="content-card">
+                    <div class="card-heading">
+                        <div>
+                            <h2>My reservations</h2>
+                            <p>Only your own bookings are shown</p>
+                        </div>
+                        <button id="refreshMine" type="button">Refresh</button>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Table</th>
+                                    <th>People</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="mineTableBody"></tbody>
+                        </table>
+                    </div>
+                </article>
+            </section>
+        </main>
+    </div>
+
+    <script src="config.js?v=1"></script>
+    <script src="app.js?v=1"></script>
+</body>
+</html>
