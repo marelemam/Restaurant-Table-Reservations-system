@@ -1,12 +1,47 @@
 const express = require("express");
 const { Pool } = require("pg");
-const { requireAuth, requireRole } = require("../shared/auth");
+const { requireAuth, requireRole } = require("./shared/auth");
 
 const router = express.Router();
+
+console.log(
+    "Table Service DB host:",
+    process.env.DATABASE_URL
+        ? new URL(process.env.DATABASE_URL).hostname
+        : "MISSING"
+);
+
+console.log("PGHOST:", process.env.PGHOST || "not set");
 
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL
 });
+
+router.get("/db-health", async (req, res) => {
+    try {
+        const result = await pool.query("SELECT 1");
+        res.status(200).json({
+            status: "ok",
+            database: "connected"
+        });
+    } catch (error) {
+        console.error("Database health check failed:", error.message);
+        res.status(500).json({
+            status: "error",
+            database: "disconnected"
+        });
+    }
+});
+
+//temp
+pool.connect()
+    .then(client => {
+        console.log("Database connected successfully!");
+        client.release();
+    })
+    .catch(err => {
+        console.error("Database connection error:", err.message);
+    });
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
