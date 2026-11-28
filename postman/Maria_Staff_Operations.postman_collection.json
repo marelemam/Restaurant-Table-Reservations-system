@@ -1,0 +1,1099 @@
+{
+  "info": {
+    "_postman_id": "6b47ec8e-b8f1-4c10-87cf-3628f617a855",
+    "name": "My Collection",
+    "description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "59084926"
+  },
+  "item": [
+    {
+      "name": "Get data",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3002/api/staff/waitlist",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3002",
+          "path": [
+            "api",
+            "staff",
+            "waitlist"
+          ]
+        },
+        "description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+      },
+      "response": []
+    },
+    {
+      "name": "Post data",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Successful POST request\", function () {\n    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\n});\n"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"customerName\": \"Test Walk-in\",\n  \"phone\": \"01000000003\",\n  \"partySize\": 3\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3002/api/staff/waitlist",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3002",
+          "path": [
+            "api",
+            "staff",
+            "waitlist"
+          ]
+        },
+        "description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"reservationId\": \"reservation-test-003\",\r\n  \"notes\": \"Customer arrived on time\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3002/api/staff/attendance/check-ins",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3002",
+          "path": [
+            "api",
+            "staff",
+            "attendance",
+            "check-ins"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"reservationId\": \"reservation-test-004\",\r\n  \"scheduledStartTime\": \"2026-11-27T03:00:00.000Z\",\r\n  \"notes\": \"Customer did not arrive\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3002/api/staff/attendance/no-shows",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3002",
+          "path": [
+            "api",
+            "staff",
+            "attendance",
+            "no-shows"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Grace-period rule",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3002/api/staff/attendance",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3002",
+          "path": [
+            "api",
+            "staff",
+            "attendance"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3002/api/staff/waitlist",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3002",
+          "path": [
+            "api",
+            "staff",
+            "waitlist"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3002/api/staff/waitlist",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3002",
+          "path": [
+            "api",
+            "staff",
+            "waitlist"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3002/api/staff/waitlist/00000000-0000-0000-0000-000000000101/notify",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3002",
+          "path": [
+            "api",
+            "staff",
+            "waitlist",
+            "00000000-0000-0000-0000-000000000101",
+            "notify"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3002/api/staff/waitlist/df9bd9a9-680c-4de7-aa1e-be1bdb10faaa/notify",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3002",
+          "path": [
+            "api",
+            "staff",
+            "waitlist",
+            "df9bd9a9-680c-4de7-aa1e-be1bdb10faaa",
+            "notify"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3002/api/staff/waitlist/df9bd9a9-680c-4de7-aa1e-be1bdb10faaa/notify",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3002",
+          "path": [
+            "api",
+            "staff",
+            "waitlist",
+            "df9bd9a9-680c-4de7-aa1e-be1bdb10faaa",
+            "notify"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3002/api/staff/waitlist/df9bd9a9-680c-4de7-aa1e-be1bdb10faaa/cancel",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3002",
+          "path": [
+            "api",
+            "staff",
+            "waitlist",
+            "df9bd9a9-680c-4de7-aa1e-be1bdb10faaa",
+            "cancel"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "waitlist",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"customerName\": \"Seating Test Customer\",\r\n  \"phone\": \"+201099999999\",\r\n  \"partySize\": 2\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3002/api/staff/waitlist",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3002",
+          "path": [
+            "api",
+            "staff",
+            "waitlist"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "\r\n{\r\n  \"waitlistId\": \"0b3b1a25-11e9-4aa4-b896-d2fc80015c3e\",\r\n  \"tableId\": \"T-01\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "\r\n{\r\n  \"waitlistId\": \"00000000-0000-0000-0000-000000000102\",\r\n  \"tableId\": \"T-01\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3002/api/staff/seating",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3002",
+          "path": [
+            "api",
+            "staff",
+            "seating"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"customerName\": \"Seating Test Customer\",\r\n  \"phone\": \"+201099999999\",\r\n  \"partySize\": 2\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3002/api/staff/waitlist",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3002",
+          "path": [
+            "api",
+            "staff",
+            "waitlist"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"newTableId\": \"T-TEST-100\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3002/api/staff/seating/97cf3503-d8c6-464c-b06f-5fe32befe059/transfer",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3002",
+          "path": [
+            "api",
+            "staff",
+            "seating",
+            "97cf3503-d8c6-464c-b06f-5fe32befe059",
+            "transfer"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3002/api/staff/seating/97cf3503-d8c6-464c-b06f-5fe32befe059/checkout",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3002",
+          "path": [
+            "api",
+            "staff",
+            "seating",
+            "97cf3503-d8c6-464c-b06f-5fe32befe059",
+            "checkout"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3002/api/staff/activity",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3002",
+          "path": [
+            "api",
+            "staff",
+            "activity"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3002/api/staff/activity?entityType=seating&limit=20&offset=0",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3002",
+          "path": [
+            "api",
+            "staff",
+            "activity"
+          ],
+          "query": [
+            {
+              "key": "entityType",
+              "value": "seating"
+            },
+            {
+              "key": "limit",
+              "value": "20"
+            },
+            {
+              "key": "offset",
+              "value": "0"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3002/api/staff/activity?staffId=another-staff-member",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3002",
+          "path": [
+            "api",
+            "staff",
+            "activity"
+          ],
+          "query": [
+            {
+              "key": "staffId",
+              "value": "another-staff-member"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3002/api/staff/analytics/daily",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3002",
+          "path": [
+            "api",
+            "staff",
+            "analytics",
+            "daily"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3002/api/staff/analytics/daily?date=incorrect",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3002",
+          "path": [
+            "api",
+            "staff",
+            "analytics",
+            "daily"
+          ],
+          "query": [
+            {
+              "key": "date",
+              "value": "incorrect"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3002/api/staff/analytics/daily?date=2026-11-26",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3002",
+          "path": [
+            "api",
+            "staff",
+            "analytics",
+            "daily"
+          ],
+          "query": [
+            {
+              "key": "date",
+              "value": "2026-11-26"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3002/api/staff/activity",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3002",
+          "path": [
+            "api",
+            "staff",
+            "activity"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": " eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InVzLWVhc3QtMV9kOTgxZTY5ZDYifQ.eyJzdWIiOiI1YmYwYWE5ZS00MjJmLTQyZGUtOWM0MC1kMjEwNTRiNDI2NjMiLCJldmVudF9pZCI6Ijg3NTUzMjhlLWM1Y2YtNDhjZS1hZWRjLWNlMzNhYWVjYWM2ZCIsInRva2VuX3VzZSI6ImFjY2VzcyIsImF1dGhfdGltZSI6MTc5NTc2NTU2MCwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo0NTY2L3VzLWVhc3QtMV9kOTgxZTY5ZDYiLCJleHAiOjE3OTU3NjkxNjAsImlhdCI6MTc5NTc2NTU2MCwidXNlcm5hbWUiOiJtYXJpYS5zdGFmZiIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJqdGkiOiJiM2NjNzhmNi0zNzE1LTRlZWItODE4Mi1hODE0MjZjZjk4ZDgiLCJvcmlnaW5fanRpIjoiNmFkMWQ4NjItZjI1MS00Yjk0LWI5ZDgtNzYwNjczYTJlMTZhIiwiY2xpZW50X2lkIjoiM2ZlZjg1NWNmNzUyNDJjODllMTFkOWY1MzQiLCJjb2duaXRvOmdyb3VwcyI6WyJTdGFmZiJdfQ.O5lh8txymxVjX6l9ADaUal81TmNTPscdlySPw8RIv7dhcbdZDK2MM0xxfhbFLLJvKYgCrKoaAFwHyArNwXerZ-Oa_3_-XvNvuoIm_eHThRlNNJu5U_A7TWLIhGVyD9sD27pcWmt7-eWl53Bf3Y_bvqxFAJAsHGKKZIMcqfuBJ2QpTVZSJX2YnT5ka014zpBrKE5Dg0Rm6Mu6hoGVc-mqOtPS2ZK91NdHXgGqeKGX2ItcgeHofuPOH1835Nck0_ZHWyZoKyWtHuOO6ZaxdH_zBhUTx-vNN_JxtHkC4P4fujo_tzTG6LyS3EMlioRkjA8GpxTay7PGwHX_nb3C9nitfw",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3002/api/staff/activity",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3002",
+          "path": [
+            "api",
+            "staff",
+            "activity"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request Copy",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": " eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InVzLWVhc3QtMV9kOTgxZTY5ZDYifQ.eyJzdWIiOiI1YmYwYWE5ZS00MjJmLTQyZGUtOWM0MC1kMjEwNTRiNDI2NjMiLCJldmVudF9pZCI6Ijg3NTUzMjhlLWM1Y2YtNDhjZS1hZWRjLWNlMzNhYWVjYWM2ZCIsInRva2VuX3VzZSI6ImFjY2VzcyIsImF1dGhfdGltZSI6MTc5NTc2NTU2MCwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo0NTY2L3VzLWVhc3QtMV9kOTgxZTY5ZDYiLCJleHAiOjE3OTU3NjkxNjAsImlhdCI6MTc5NTc2NTU2MCwidXNlcm5hbWUiOiJtYXJpYS5zdGFmZiIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJqdGkiOiJiM2NjNzhmNi0zNzE1LTRlZWItODE4Mi1hODE0MjZjZjk4ZDgiLCJvcmlnaW5fanRpIjoiNmFkMWQ4NjItZjI1MS00Yjk0LWI5ZDgtNzYwNjczYTJlMTZhIiwiY2xpZW50X2lkIjoiM2ZlZjg1NWNmNzUyNDJjODllMTFkOWY1MzQiLCJjb2duaXRvOmdyb3VwcyI6WyJTdGFmZiJdfQ.O5lh8txymxVjX6l9ADaUal81TmNTPscdlySPw8RIv7dhcbdZDK2MM0xxfhbFLLJvKYgCrKoaAFwHyArNwXerZ-Oa_3_-XvNvuoIm_eHThRlNNJu5U_A7TWLIhGVyD9sD27pcWmt7-eWl53Bf3Y_bvqxFAJAsHGKKZIMcqfuBJ2QpTVZSJX2YnT5ka014zpBrKE5Dg0Rm6Mu6hoGVc-mqOtPS2ZK91NdHXgGqeKGX2ItcgeHofuPOH1835Nck0_ZHWyZoKyWtHuOO6ZaxdH_zBhUTx-vNN_JxtHkC4P4fujo_tzTG6LyS3EMlioRkjA8GpxTay7PGwHX_nb3C9nitfw",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3002/api/staff/activity",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3002",
+          "path": [
+            "api",
+            "staff",
+            "activity"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"customerName\": \"SQS Test Customer\",\r\n  \"phone\": \"01000000044\",\r\n  \"partySize\": 4\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3002/api/staff/waitlist",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3002",
+          "path": [
+            "api",
+            "staff",
+            "waitlist"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Waitlist Entry",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{accessToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"customerName\": \"Postman Test Customer\",\r\n  \"phone\": \"01000000000\",\r\n  \"partySize\": 2\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/staff/waitlist",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "staff",
+            "waitlist"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Customer Check-in",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InVzLWVhc3QtMV8wNjQxMWNhYjUifQ.eyJzdWIiOiI1NGU4N2RjYy04MDljLTQ5YWYtOTI3Mi01NWIwNmU0ZTgzNTkiLCJldmVudF9pZCI6IjlmMzgyN2UxLTgyYmEtNGM3ZS1hZDY5LTk4OTI0YmJjZDcxZCIsInRva2VuX3VzZSI6ImFjY2VzcyIsImF1dGhfdGltZSI6MTc5NTg2ODM3MCwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo0NTY2L3VzLWVhc3QtMV8wNjQxMWNhYjUiLCJleHAiOjE3OTU4NzE5NzAsImlhdCI6MTc5NTg2ODM3MCwidXNlcm5hbWUiOiJtYXJpYS5hZG1pbiIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJqdGkiOiJmN2MzYzI5MS1mM2E1LTQyYTktYjdmMS1hYTY2NzQ1MzVlM2IiLCJvcmlnaW5fanRpIjoiMjE0ZmU5MzAtOTFjOS00NWE2LTkyOTQtMWE0ZmVjNjcwMGU2IiwiY2xpZW50X2lkIjoiZThkZjhkZGY4YTEyNDhiMGFjNjgxNjc3MmUiLCJjb2duaXRvOmdyb3VwcyI6WyJBZG1pbiJdfQ.ilSp7Gtj4N3lKY4p7gXYKc-bNKuNjGnpfCWIWopdFkl-kY2W7xQJA6XtnLH80JaqqpZgm2qexG-tsOMUf04M0kXvHvF1br8LrFfdL1TKSdgFuizmRM-bWWAjsemFXHDZOh8ARPyEiwW8WgazhyNZE7FsNdEa9snRdl0BNT9bjUwjcmDZxzBgA7fTVbWaF86n9-Vy3VSQFiL1bg8Wseole0EYT925wx-Q3zJFrrFXvIoh4pU-XFYEcslL_m_qdE2dGnHo3A6jJWO2sqFJLmrDHCMRxmqd-j-ydoQgLF_mkEGn4X2lSRKXLd96DwXSik2wXbZLfErLgAMxHwIFOPH69g",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"reservationId\": \"POSTMAN-RES-001\",\r\n  \"notes\": \"Customer checked in through Postman\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/staff/attendance/check-ins",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "staff",
+            "attendance",
+            "check-ins"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "seat a waitlist customer",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InVzLWVhc3QtMV8wNjQxMWNhYjUifQ.eyJzdWIiOiI1NGU4N2RjYy04MDljLTQ5YWYtOTI3Mi01NWIwNmU0ZTgzNTkiLCJldmVudF9pZCI6IjlmMzgyN2UxLTgyYmEtNGM3ZS1hZDY5LTk4OTI0YmJjZDcxZCIsInRva2VuX3VzZSI6ImFjY2VzcyIsImF1dGhfdGltZSI6MTc5NTg2ODM3MCwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo0NTY2L3VzLWVhc3QtMV8wNjQxMWNhYjUiLCJleHAiOjE3OTU4NzE5NzAsImlhdCI6MTc5NTg2ODM3MCwidXNlcm5hbWUiOiJtYXJpYS5hZG1pbiIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJqdGkiOiJmN2MzYzI5MS1mM2E1LTQyYTktYjdmMS1hYTY2NzQ1MzVlM2IiLCJvcmlnaW5fanRpIjoiMjE0ZmU5MzAtOTFjOS00NWE2LTkyOTQtMWE0ZmVjNjcwMGU2IiwiY2xpZW50X2lkIjoiZThkZjhkZGY4YTEyNDhiMGFjNjgxNjc3MmUiLCJjb2duaXRvOmdyb3VwcyI6WyJBZG1pbiJdfQ.ilSp7Gtj4N3lKY4p7gXYKc-bNKuNjGnpfCWIWopdFkl-kY2W7xQJA6XtnLH80JaqqpZgm2qexG-tsOMUf04M0kXvHvF1br8LrFfdL1TKSdgFuizmRM-bWWAjsemFXHDZOh8ARPyEiwW8WgazhyNZE7FsNdEa9snRdl0BNT9bjUwjcmDZxzBgA7fTVbWaF86n9-Vy3VSQFiL1bg8Wseole0EYT925wx-Q3zJFrrFXvIoh4pU-XFYEcslL_m_qdE2dGnHo3A6jJWO2sqFJLmrDHCMRxmqd-j-ydoQgLF_mkEGn4X2lSRKXLd96DwXSik2wXbZLfErLgAMxHwIFOPH69g",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"tableId\": \"T-POSTMAN-02\",\r\n  \"waitlistId\": \"{{waitlistId}}\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/staff/seating",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "staff",
+            "seating"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Health Check",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Health returns 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Staff service is healthy\", function () {\r\n    const json = pm.response.json();\r\n    pm.expect(json.status).to.eql(\"ok\");\r\n    pm.expect(json.service).to.eql(\"staff-operations\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "health"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "List active waitlist",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Waitlist returns 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Waitlist is an array\", function () {\r\n    const json = pm.response.json();\r\n    pm.expect(json.waitlist).to.be.an(\"array\");\r\n});\r\n\r\npm.test(\"Created customer appears\", function () {\r\n    const json = pm.response.json();\r\n    const waitlistId = pm.environment.get(\"waitlistId\");\r\n\r\n    const found = json.waitlist.some(\r\n        entry => entry.waitlist_id === waitlistId\r\n    );\r\n\r\n    pm.expect(found).to.eql(true);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/staff/waitlist",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "staff",
+            "waitlist"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Customer notification succeeds\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Waitlist status is notified\", function () {\r\n    const json = pm.response.json();\r\n    pm.expect(json.waitlistEntry.status).to.eql(\"notified\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/staff/waitlist/{{waitlistId}}/notify",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "staff",
+            "waitlist",
+            "{{waitlistId}}",
+            "notify"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "create new waitlist entry",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Notify waitlist customer2",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Customer notification succeeds\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Waitlist status is notified\", function () {\r\n    const json = pm.response.json();\r\n    pm.expect(json.waitlistEntry.status).to.eql(\"notified\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/staff/waitlist/{{waitlistId}}/notify",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "staff",
+            "waitlist",
+            "{{waitlistId}}",
+            "notify"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InVzLWVhc3QtMV8wNjQxMWNhYjUifQ.eyJzdWIiOiI1NGU4N2RjYy04MDljLTQ5YWYtOTI3Mi01NWIwNmU0ZTgzNTkiLCJldmVudF9pZCI6IjlmMzgyN2UxLTgyYmEtNGM3ZS1hZDY5LTk4OTI0YmJjZDcxZCIsInRva2VuX3VzZSI6ImFjY2VzcyIsImF1dGhfdGltZSI6MTc5NTg2ODM3MCwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo0NTY2L3VzLWVhc3QtMV8wNjQxMWNhYjUiLCJleHAiOjE3OTU4NzE5NzAsImlhdCI6MTc5NTg2ODM3MCwidXNlcm5hbWUiOiJtYXJpYS5hZG1pbiIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJqdGkiOiJmN2MzYzI5MS1mM2E1LTQyYTktYjdmMS1hYTY2NzQ1MzVlM2IiLCJvcmlnaW5fanRpIjoiMjE0ZmU5MzAtOTFjOS00NWE2LTkyOTQtMWE0ZmVjNjcwMGU2IiwiY2xpZW50X2lkIjoiZThkZjhkZGY4YTEyNDhiMGFjNjgxNjc3MmUiLCJjb2duaXRvOmdyb3VwcyI6WyJBZG1pbiJdfQ.ilSp7Gtj4N3lKY4p7gXYKc-bNKuNjGnpfCWIWopdFkl-kY2W7xQJA6XtnLH80JaqqpZgm2qexG-tsOMUf04M0kXvHvF1br8LrFfdL1TKSdgFuizmRM-bWWAjsemFXHDZOh8ARPyEiwW8WgazhyNZE7FsNdEa9snRdl0BNT9bjUwjcmDZxzBgA7fTVbWaF86n9-Vy3VSQFiL1bg8Wseole0EYT925wx-Q3zJFrrFXvIoh4pU-XFYEcslL_m_qdE2dGnHo3A6jJWO2sqFJLmrDHCMRxmqd-j-ydoQgLF_mkEGn4X2lSRKXLd96DwXSik2wXbZLfErLgAMxHwIFOPH69g",
+        "type": "string"
+      }
+    ]
+  }
+}

@@ -1,0 +1,995 @@
+
+> staff-service@1.0.0 start
+> node app.js
+
+Maria staff service running on port 3002
+(node:38100) Warning: SECURITY WARNING: The SSL modes 'prefer', 'require', and 'verify-ca' are treated as aliases for 'verify-full'.
+In the next major version (pg-connection-string v3.0.0 and pg v9.0.0), these modes will adopt standard libpq semantics, which have weaker security guarantees.
+
+To prepare for this change:
+- If you want the current behavior, explicitly use 'sslmode=verify-full'
+- If you want libpq compatibility now, use 'uselibpqcompat=true&sslmode=require'
+
+See https://www.postgresql.org/docs/current/libpq-ssl.html for libpq SSL mode definitions.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:644:9)
+    at process.processTimers (node:internal/timers:618:7)
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28
+Staff service error: Error: timeout exceeded when trying to connect
+    at C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\node_modules\pg-pool\index.js:45:11
+    at async C:\Users\maria\Documents\_BUE YEAR3\cloud\Cloud Project Progress\Restaurant-Table-Reservations-system\backend\staff-service\routes\analyticsRoutes.js:57:28

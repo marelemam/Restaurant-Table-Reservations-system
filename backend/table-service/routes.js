@@ -1,21 +1,10 @@
 const express = require("express");
-const { Pool } = require("pg");
-const { requireAuth, requireRole } = require("./shared/auth");
+const { requireAuth, requireRole } = require("../shared/auth");
+const { query } = require("./db");
 
 const router = express.Router();
 
-console.log(
-    "Table Service DB host:",
-    process.env.DATABASE_URL
-        ? new URL(process.env.DATABASE_URL).hostname
-        : "MISSING"
-);
-
-console.log("PGHOST:", process.env.PGHOST || "not set");
-
-const pool = new Pool({
-    connectionString: process.env.DATABASE_URL
-});
+const pool = { query };
 
 router.get("/db-health", async (req, res) => {
     try {
@@ -32,16 +21,6 @@ router.get("/db-health", async (req, res) => {
         });
     }
 });
-
-//temp
-pool.connect()
-    .then(client => {
-        console.log("Database connected successfully!");
-        client.release();
-    })
-    .catch(err => {
-        console.error("Database connection error:", err.message);
-    });
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
@@ -60,7 +39,7 @@ router.get("/", requireAuth, async (req, res) => {
 });
 
 // 2. Add a new table (staff only)
-router.post("/", requireAuth, requireRole("staff"), async (req, res) => {
+router.post("/", requireAuth, requireRole("staff", "admin"), async (req, res) => {
     try {
         const { table_number, capacity, location } = req.body || {};
 
@@ -103,7 +82,7 @@ router.post("/", requireAuth, requireRole("staff"), async (req, res) => {
 });
 
 // 3. Update table information (staff only)
-router.put("/:id", requireAuth, requireRole("staff"), async (req, res) => {
+router.put("/:id", requireAuth, requireRole("staff", "admin"), async (req, res) => {
     try {
         const { id } = req.params;
         const { table_number, capacity, location } = req.body || {};
@@ -150,7 +129,7 @@ router.put("/:id", requireAuth, requireRole("staff"), async (req, res) => {
 });
 
 // 4. Update table operational status (staff only)
-router.patch("/:id/status", requireAuth, requireRole("staff"), async (req, res) => {
+router.patch("/:id/status", requireAuth, requireRole("staff", "admin"), async (req, res) => {
     try {
         const { id } = req.params;
         const { operational_status } = req.body || {};
@@ -159,7 +138,7 @@ router.patch("/:id/status", requireAuth, requireRole("staff"), async (req, res) 
             return res.status(400).json({ error: "Invalid id" });
         }
 
-        const allowedStatuses = ["available", "occupied", "maintenance"];
+        const allowedStatuses = ["available", "maintenance"];
 
         if (!allowedStatuses.includes(operational_status)) {
             return res.status(400).json({
@@ -171,15 +150,18 @@ router.patch("/:id/status", requireAuth, requireRole("staff"), async (req, res) 
             `UPDATE tables_cfg.restaurant_tables
              SET operational_status = $1
              WHERE table_id = $2
+             AND operational_status <> 'occupied'
              RETURNING *`,
             [operational_status, id]
         );
 
         if (result.rows.length === 0) {
-            return res.status(404).json({ error: "Table not found" });
+            return res.status(409).json({
+                error: "Table was not found or must be released through its seating session"
+            });
         }
 
-        console.log(JSON.stringify({           // ← السطر الجديد
+        console.log(JSON.stringify({
             type: "TABLE_STATUS_CHANGED",
             userId: req.user.id,
             tableId: id,
@@ -276,7 +258,7 @@ router.get("/:id", requireAuth, async (req, res) => {
 
 
 // 8. Update booking policy (staff only)
-router.put("/policies/:id", requireAuth, requireRole("staff"), async (req, res) => {
+router.put("/policies/:id", requireAuth, requireRole("staff", "admin"), async (req, res) => {
     try {
         const { id } = req.params;
         const { max_duration, preparation_buffer } = req.body || {};
@@ -317,6 +299,84 @@ router.put("/policies/:id", requireAuth, requireRole("staff"), async (req, res) 
         res.status(500).json({
             error: "Failed to update booking policy"
         });
+    }
+});
+
+router.post("/:id/occupy", requireAuth, requireRole("staff", "admin"), async (req, res) => {
+    const { id } = req.params;
+    const { seatingId, sourceType, sourceId, partySize } = req.body || {};
+
+    if (!UUID_RE.test(id) || !UUID_RE.test(seatingId)) {
+        return res.status(400).json({ error: "Valid table and seating IDs are required" });
+    }
+    if (!["reservation", "waitlist"].includes(sourceType) || !sourceId) {
+        return res.status(400).json({ error: "Valid sourceType and sourceId are required" });
+    }
+    if (!Number.isInteger(partySize) || partySize < 1) {
+        return res.status(400).json({ error: "partySize must be a positive integer" });
+    }
+
+    try {
+        const result = await pool.query(
+            `UPDATE tables_cfg.restaurant_tables
+             SET operational_status = 'occupied',
+                 active_seating_id = $2,
+                 occupancy_source_type = $3,
+                 occupancy_source_id = $4
+             WHERE table_id = $1
+               AND operational_status = 'available'
+               AND capacity >= $5
+             RETURNING *`,
+            [id, seatingId, sourceType, String(sourceId), partySize]
+        );
+        if (result.rowCount === 0) {
+            return res.status(409).json({
+                error: "Table is unavailable or too small for this party"
+            });
+        }
+        return res.status(200).json({
+            message: "Table occupied successfully",
+            table: result.rows[0]
+        });
+    } catch (error) {
+        console.error("Occupy table failed:", error.message);
+        return res.status(500).json({ error: "Failed to occupy table" });
+    }
+});
+
+router.post("/:id/release", requireAuth, requireRole("staff", "admin"), async (req, res) => {
+    const { id } = req.params;
+    const { seatingId } = req.body || {};
+
+    if (!UUID_RE.test(id) || !UUID_RE.test(seatingId)) {
+        return res.status(400).json({ error: "Valid table and seating IDs are required" });
+    }
+
+    try {
+        const result = await pool.query(
+            `UPDATE tables_cfg.restaurant_tables
+             SET operational_status = 'available',
+                 active_seating_id = NULL,
+                 occupancy_source_type = NULL,
+                 occupancy_source_id = NULL
+             WHERE table_id = $1
+               AND operational_status = 'occupied'
+               AND active_seating_id = $2
+             RETURNING *`,
+            [id, seatingId]
+        );
+        if (result.rowCount === 0) {
+            return res.status(409).json({
+                error: "Table is not occupied by this seating session"
+            });
+        }
+        return res.status(200).json({
+            message: "Table released successfully",
+            table: result.rows[0]
+        });
+    } catch (error) {
+        console.error("Release table failed:", error.message);
+        return res.status(500).json({ error: "Failed to release table" });
     }
 });
 

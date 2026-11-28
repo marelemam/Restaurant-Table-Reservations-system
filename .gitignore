@@ -1,3 +1,9 @@
 node_modules/
 .env
 *.zip
+*-response.json
+*-payload.json
+*-result.txt
+*-result.json
+*-debug.txt
+lambda-env.json

@@ -5,7 +5,7 @@ let jwksCache = { keys: null, fetchedAt: 0 };
 const JWKS_TTL_MS = 10 * 60 * 1000;
 
 async function loadJwks(force = false) {
-    const url = process.env.COGNITO_JWKS_URL;
+    const url = process.env.COGNITO_JWKS_URL || process.env.COGNITO_JWKS_URI;
     if (!url) {
         const e = new Error("COGNITO_JWKS_URL is not configured");
         e.code = "AUTH_CONFIG";
@@ -92,6 +92,25 @@ function logAuthFailure(req, reason) {
 }
 
 async function requireAuth(req, res, next) {
+    if (
+        process.env.NODE_ENV !== "production" &&
+        process.env.DEV_AUTH_BYPASS === "true"
+    ) {
+        const requestedRole = (req.get("x-dev-role") || "Customer").toLowerCase();
+        const role = ["customer", "staff", "admin"].includes(requestedRole)
+            ? requestedRole
+            : "customer";
+        req.user = {
+            id: req.get("x-dev-user-id") || "local-development-user",
+            sub: req.get("x-dev-user-id") || "local-development-user",
+            email: null,
+            role,
+            groups: [role[0].toUpperCase() + role.slice(1)],
+            customerId: Number(req.get("x-customer-id")) || null
+        };
+        return next();
+    }
+
     const header = req.headers.authorization || "";
     const match = header.match(/^Bearer (.+)$/i);
     if (!match) {
@@ -100,12 +119,21 @@ async function requireAuth(req, res, next) {
     }
     try {
         const claims = await verifyToken(match[1]);
-        const groups = claims["cognito:groups"] || [];
+        const groups = Array.isArray(claims["cognito:groups"])
+            ? claims["cognito:groups"]
+            : [];
+        const normalizedGroups = groups.map((group) => String(group).toLowerCase());
+        const role = normalizedGroups.includes("admin")
+            ? "admin"
+            : normalizedGroups.includes("staff")
+                ? "staff"
+                : "customer";
         req.user = {
             id: claims.sub,
+            sub: claims.sub,
             email: claims.email || null,
-            // الافتراضي customer. staff لازم تكون في group اسمها staff
-            role: groups.includes("staff") ? "staff" : "customer"
+            role,
+            groups
         };
         return next();
     } catch (err) {
@@ -119,9 +147,12 @@ async function requireAuth(req, res, next) {
 }
 
 function requireRole(...allowedRoles) {
+    const normalizedAllowedRoles = allowedRoles.map((role) =>
+        String(role).toLowerCase()
+    );
     return (req, res, next) => {
         if (!req.user) return res.status(401).json({ error: "Authentication required" });
-        if (!allowedRoles.includes(req.user.role)) {
+        if (!normalizedAllowedRoles.includes(String(req.user.role).toLowerCase())) {
             console.warn(JSON.stringify({
                 type: "ACCESS_DENIED",
                 userId: req.user.id,

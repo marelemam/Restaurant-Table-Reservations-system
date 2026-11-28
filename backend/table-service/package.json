@@ -5,13 +5,19 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "node --watch app.js"
+    "dev": "node --watch app.js",
+    "test": "node --test"
   },
   "dependencies": {
+    "@aws-sdk/client-secrets-manager": "^3.1179.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^5.3.0",
+    "helmet": "^8.3.0",
     "pg": "^8.13.1",
     "serverless-http": "^4.0.0"
+  },
+  "devDependencies": {
+    "supertest": "^7.3.2"
   }
 }

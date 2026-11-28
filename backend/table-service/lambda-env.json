@@ -1,8 +1,0 @@
-{
-  "Variables": {
-    "DATABASE_URL": "postgresql://neondb_owner:npg_2rChNc7MUXOz@ep-falling-art-bb26wl7m-pooler.c-15.us-east-1.aws.neon.tech/table-reservation_mariam?sslmode=require&channel_binding=require",
-"COGNITO_JWKS_URL": "http://172.18.0.2:4566/us-east-1_853bda607/.well-known/jwks.json",
-    "COGNITO_ISSUER": "http://localhost:4566/us-east-1_853bda607",
-    "COGNITO_CLIENT_ID": "c9873447ed134b2daf180c92a4"
-  }
-}
