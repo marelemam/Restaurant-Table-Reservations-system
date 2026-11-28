@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Book a Table</title>
-    <link rel="stylesheet" href="styles.css?v=1">
+    <link rel="stylesheet" href="styles.css?v=2">
 </head>
 
 <body>
@@ -125,16 +125,23 @@
                             <input id="bookParty" type="number" min="1" max="20" value="2" required>
                         </div>
 
+                        <button id="findTables" type="button" class="secondary-button">
+                            Find free tables
+                        </button>
+
                         <div>
-                            <label for="bookTable">Table number</label>
-                            <input id="bookTable" type="number" min="1" required>
+                            <label for="bookTable">Table</label>
+                            <select id="bookTable" required disabled>
+                                <option value="">Find free tables first</option>
+                            </select>
                         </div>
 
                         <button type="submit" class="primary-button">Book</button>
                     </form>
 
-                    <p class="form-note">
-                        You'll get a confirmation email once your table is booked.
+                    <p id="availabilityNote" class="form-note">
+                        Pick a date, time and party size, then find a free table.
+                        You'll get a confirmation email once it's booked.
                     </p>
                 </article>
             </section>
@@ -223,6 +230,6 @@
     </div>
 
     <script src="config.js?v=1"></script>
-    <script src="app.js?v=1"></script>
+    <script src="app.js?v=2"></script>
 </body>
 </html>

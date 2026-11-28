@@ -740,3 +740,23 @@ tbody tr:hover {
         grid-template-columns: 1fr;
     }
 }
+
+.secondary-button {
+    min-height: 43px;
+    padding: 11px 16px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    background: var(--surface-soft);
+    font-weight: 700;
+}
+
+.secondary-button:hover {
+    border-color: var(--primary);
+    color: var(--primary-dark);
+}
+
+select:disabled {
+    color: var(--muted);
+    background: var(--surface-soft);
+}

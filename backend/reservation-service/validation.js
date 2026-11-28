@@ -1,11 +1,14 @@
-// Placeholder rules: later these come from Mariam's BookingPolicy and Table data
+// Basic booking rules. Table-specific rules (capacity, maintenance, max length,
+// cleaning gap) come from Mariam's service and are checked in routes.js.
 const RULES = {
   maxPartySize: 20,
   minDurationMinutes: 30,
-  maxDurationMinutes: 240,
+  maxDurationMinutes: 240, // outer limit; Mariam's policy can make it shorter
   maxDaysAhead: 30,
   timeZone: 'Africa/Cairo',
 };
+
+const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 // "19:30" -> 1170 (minutes since midnight)
 function toMinutes(time) {
@@ -20,7 +23,7 @@ function nowInRestaurant() {
 
 // Is "2026-02-30" a real date?
 function isRealDate(text) {
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(text)) return false;
+  if (typeof text !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(text)) return false;
   const d = new Date(text + 'T00:00:00Z');
   return !isNaN(d) && d.toISOString().slice(0, 10) === text;
 }
@@ -29,20 +32,12 @@ function isTime(text) {
   return typeof text === 'string' && /^([01]\d|2[0-3]):[0-5]\d(:[0-5]\d)?$/.test(text);
 }
 
-function validateReservation(r) {
+// Checks a date + time + party size. Used for bookings and for availability search.
+function validateSlot(s) {
   const errors = [];
-  const { customerId, tableId, reservationDate, startTime, endTime, partySize } = r;
+  const { reservationDate, startTime, endTime, partySize } = s;
 
   // 1. Format checks
-  if (!Number.isInteger(customerId) || customerId < 1) errors.push('customerId must be a positive whole number');
-  //////
-  const UUID_REGEX =
-  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-
-  if (typeof tableId !== 'string' || !UUID_REGEX.test(tableId)) {
-    errors.push('tableId must be a valid UUID');
-  }
-  /////
   if (!isRealDate(reservationDate)) errors.push('reservationDate must be a real date like 2026-12-01');
   if (!isTime(startTime)) errors.push('startTime must look like 19:00');
   if (!isTime(endTime)) errors.push('endTime must look like 21:00');
@@ -83,4 +78,18 @@ function validateReservation(r) {
   return errors;
 }
 
-module.exports = { validateReservation, RULES };
+// Full booking: who + which table + the slot
+function validateReservation(r) {
+  const errors = [];
+
+  if (!Number.isInteger(r.customerId) || r.customerId < 1) {
+    errors.push('customerId must be a positive whole number');
+  }
+  if (typeof r.tableId !== 'string' || !UUID_REGEX.test(r.tableId)) {
+    errors.push('tableId must be a valid UUID');
+  }
+
+  return errors.concat(validateSlot(r));
+}
+
+module.exports = { validateReservation, validateSlot, toMinutes, RULES };

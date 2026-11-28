@@ -15,7 +15,8 @@ const state = {
     // { kind: "token", token, label }  or  { kind: "test", customerId, label }
     session: readSavedSession(),
     reservations: [],
-    editingId: null
+    editingId: null,
+    tableNames: readSavedTableNames() // table_id -> "T5 · window"
 };
 
 /* ---------- Small helpers ---------- */
@@ -82,6 +83,25 @@ function readSavedSession() {
     } catch {
         return null;
     }
+}
+
+function readSavedTableNames() {
+    try {
+        return JSON.parse(sessionStorage.getItem("customerAppTableNames") || "{}");
+    } catch {
+        return {};
+    }
+}
+
+function rememberTable(table) {
+    state.tableNames[table.table_id] =
+        table.location ? `${table.table_number} · ${table.location}` : table.table_number;
+    sessionStorage.setItem("customerAppTableNames", JSON.stringify(state.tableNames));
+}
+
+// Show "T5 · window" if we know it, otherwise the start of the table ID
+function tableLabel(tableId) {
+    return state.tableNames[tableId] || `${String(tableId).slice(0, 8)}…`;
 }
 
 function decodeJwt(token) {
@@ -295,7 +315,7 @@ function renderReservations() {
                     <td>${id}</td>
                     <td>${escapeHtml(r.reservation_date)}</td>
                     <td>${escapeHtml(shortTime(r.start_time))} – ${escapeHtml(shortTime(r.end_time))}</td>
-                    <td>${escapeHtml(r.table_id)}</td>
+                    <td title="${escapeHtml(r.table_id)}">${escapeHtml(tableLabel(r.table_id))}</td>
                     <td>${escapeHtml(r.party_size)}</td>
                     <td>
                         <span class="status-badge ${statusClass(r.status)}">
@@ -350,7 +370,7 @@ function applyDateLimits() {
     }
 
     element("bookingRules").textContent =
-        `Book up to ${CONFIG.maxDaysAhead} days ahead, for 30 minutes to 4 hours, up to 20 people`;
+        `Book up to ${CONFIG.maxDaysAhead} days ahead, for at least 30 minutes, up to 20 people`;
 }
 
 /* ---------- Event listeners ---------- */
@@ -410,6 +430,65 @@ document.querySelectorAll(".nav-button").forEach((button) => {
     button.addEventListener("click", () => activatePanel(button.dataset.panel));
 });
 
+function resetTablePicker(message = "Find free tables first") {
+    const select = element("bookTable");
+    select.innerHTML = `<option value="">${escapeHtml(message)}</option>`;
+    select.disabled = true;
+}
+
+// Ask the reservation service which tables are free for the chosen slot.
+// The service gets the suitable tables from Mariam's table service,
+// then removes the ones already booked at that time.
+element("findTables").addEventListener("click", async () => {
+    const button = element("findTables");
+    const query = new URLSearchParams({
+        date: element("bookDate").value,
+        start: element("bookStart").value,
+        end: element("bookEnd").value,
+        partySize: element("bookParty").value
+    });
+
+    button.disabled = true;
+    resetTablePicker("Searching…");
+
+    try {
+        const result = await apiRequest(`/availability?${query}`);
+        const free = Array.isArray(result.tables) ? result.tables : [];
+
+        if (free.length === 0) {
+            resetTablePicker("No free tables for that time");
+            element("availabilityNote").textContent =
+                "Nothing free for that slot. Try another time or a smaller party.";
+            return;
+        }
+
+        free.forEach(rememberTable);
+        const select = element("bookTable");
+        select.innerHTML = free
+            .map((t) => `
+                <option value="${escapeHtml(t.table_id)}">
+                    ${escapeHtml(t.table_number)} · seats ${escapeHtml(t.capacity)}${t.location ? ` · ${escapeHtml(t.location)}` : ""}
+                </option>
+            `)
+            .join("");
+        select.disabled = false;
+
+        element("availabilityNote").textContent =
+            `${free.length} table${free.length === 1 ? "" : "s"} free.` +
+            (result.bufferMinutes ? ` Tables are cleaned for ${result.bufferMinutes} minutes between bookings.` : "");
+    } catch (error) {
+        resetTablePicker();
+        showToast(error.message, true);
+    } finally {
+        button.disabled = false;
+    }
+});
+
+// Changing the slot means the old search results no longer apply
+["bookDate", "bookStart", "bookEnd", "bookParty"].forEach((id) => {
+    element(id).addEventListener("change", () => resetTablePicker());
+});
+
 element("bookingForm").addEventListener("submit", async (event) => {
     event.preventDefault();
     const button = event.currentTarget.querySelector("button");
@@ -419,7 +498,7 @@ element("bookingForm").addEventListener("submit", async (event) => {
         const reservation = await apiRequest("/reservations", {
             method: "POST",
             body: JSON.stringify({
-                tableId: Number(element("bookTable").value),
+                tableId: element("bookTable").value,
                 reservationDate: element("bookDate").value,
                 startTime: element("bookStart").value,
                 endTime: element("bookEnd").value,
@@ -427,6 +506,7 @@ element("bookingForm").addEventListener("submit", async (event) => {
             })
         });
         showToast(`Booked! Reservation #${reservation.reservation_id}. ${emailNote(reservation.emailSent)}`);
+        resetTablePicker();
         activatePanel("mine");
     } catch (error) {
         showToast(error.message, true);
