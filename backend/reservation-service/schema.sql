@@ -9,7 +9,7 @@ CREATE TABLE reservation.customer (
 
 CREATE TABLE reservation.reservation (
   reservation_id   SERIAL PRIMARY KEY,
-  customer_id      INT NOT NULL REFERENCES reservation.customer(customer_id),
+  customer_id      UUID NOT NULL REFERENCES reservation.customer(customer_id),
   table_id         INT NOT NULL,
   reservation_date DATE NOT NULL,
   start_time       TIME NOT NULL,
