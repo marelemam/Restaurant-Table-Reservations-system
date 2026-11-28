@@ -28,3 +28,6 @@ EXCLUDE USING gist (
   table_id WITH =,
   tsrange(reservation_date + start_time, reservation_date + end_time) WITH &&
 ) WHERE (status = 'confirmed');
+
+ALTER TABLE reservation.customer
+ADD COLUMN cognito_sub VARCHAR(255) UNIQUE;

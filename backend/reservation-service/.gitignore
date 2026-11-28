@@ -1,3 +1,11 @@
+# Dependencies
 **/node_modules/
+
+# Environment variables
 **/.env
+
+# ZIP packages
 *.zip
+
+# Exclude my original table service branch files
+/table-service/
