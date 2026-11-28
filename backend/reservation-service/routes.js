@@ -1,228 +1,478 @@
+
 const express = require('express');
 const pool = require('./db');
 const { validateReservation } = require('./validation');
 const { sendConfirmation, sendCancellation } = require('./notifications');
 const { identify } = require('./auth');
+
 const router = express.Router();
 
 // ---------- Health checks ----------
+
 router.get('/health', (req, res) => {
-  res.json({ service: 'reservation-service', status: 'ok' });
+  res.json({
+    service: 'reservation-service',
+    status: 'ok'
+  });
 });
 
 router.get('/db-check', async (req, res) => {
   try {
     const result = await pool.query('SELECT NOW()');
-    res.json({ db: 'ok', time: result.rows[0].now });
+
+    res.json({
+      db: 'ok',
+      time: result.rows[0].now
+    });
   } catch (err) {
-    res.status(500).json({ db: 'error', message: err.message });
+    res.status(500).json({
+      db: 'error',
+      message: err.message
+    });
   }
 });
 
-// ---------- Customers (registering is open to everyone) ----------
+// ---------- Customers ----------
+// Registering is open to everyone.
+
 router.post('/customers', async (req, res) => {
   const { name, email, phone } = req.body;
+
   if (!name || !email) {
-    return res.status(400).json({ error: 'name and email are required' });
+    return res.status(400).json({
+      error: 'name and email are required'
+    });
   }
+
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    return res.status(400).json({ error: 'email must look like name@example.com' });
+    return res.status(400).json({
+      error: 'email must look like name@example.com'
+    });
   }
+
   try {
     const result = await pool.query(
-      'INSERT INTO reservation.customer (name, email, phone) VALUES ($1, $2, $3) RETURNING *',
+      `INSERT INTO reservation.customer
+       (name, email, phone)
+       VALUES ($1, $2, $3)
+       RETURNING *`,
       [name, email, phone || null]
     );
-    res.status(201).json(result.rows[0]);
+
+    return res.status(201).json(result.rows[0]);
   } catch (err) {
-    handleDbError(err, res);
+    return handleDbError(err, res);
   }
 });
 
-// ---------- Reservations (you must say who you are) ----------
+// ---------- Reservations ----------
+// All reservation routes require authentication.
+
 router.use('/reservations', identify);
 
-// Customers are limited to their own id. Staff get null, meaning "no limit".
+// Customers can access only their own reservations.
+// Staff can access all reservations.
+
 function ownerLimit(user) {
   return user.role === 'customer' ? user.customerId : null;
 }
 
-// Create: customers can only book for themselves, staff can book for anyone
+// ---------- Create reservation ----------
+
 router.post('/reservations', async (req, res) => {
   const body = { ...req.body };
+
+  // Customers can only create reservations for themselves.
   if (req.user.role === 'customer') {
     body.customerId = req.user.customerId;
   }
 
   const errors = validateReservation(body);
+
   if (errors.length) {
     return res.status(400).json({ errors });
   }
-  const { customerId, tableId, reservationDate, startTime, endTime, partySize } = body;
+
+  const {
+    customerId,
+    tableId,
+    reservationDate,
+    startTime,
+    endTime,
+    partySize
+  } = body;
 
   try {
-    const clash = await pool.query(
-      `SELECT 1 FROM reservation.reservation
-       WHERE table_id = $1 AND reservation_date = $2 AND status = 'confirmed'
-         AND start_time < $4 AND end_time > $3`,
-      [tableId, reservationDate, startTime, endTime]
+    // 1. Check whether the table exists.
+    const tableCheck = await pool.query(
+      `SELECT capacity, operational_status
+       FROM tables_cfg.restaurant_tables
+       WHERE table_id = $1`,
+      [tableId]
     );
-    if (clash.rowCount > 0) {
-      return res.status(409).json({ error: 'table is already booked at that time' });
+
+    if (tableCheck.rowCount === 0) {
+      return res.status(404).json({
+        error: 'table not found'
+      });
     }
 
+    const table = tableCheck.rows[0];
+
+    // 2. Check whether the table is available for booking.
+    if (table.operational_status !== 'available') {
+      return res.status(400).json({
+        error: 'table is not available for booking'
+      });
+    }
+
+    // 3. Check whether the table capacity is enough.
+    if (partySize > table.capacity) {
+      return res.status(400).json({
+        error: 'party size exceeds table capacity'
+      });
+    }
+
+    // 4. Check for reservation time conflicts.
+    const clash = await pool.query(
+      `SELECT 1
+       FROM reservation.reservation
+       WHERE table_id = $1
+         AND reservation_date = $2
+         AND status = 'confirmed'
+         AND start_time < $4
+         AND end_time > $3`,
+      [tableId, reservationDate, startTime, endTime]
+    );
+
+    if (clash.rowCount > 0) {
+      return res.status(409).json({
+        error: 'table is already booked at that time'
+      });
+    }
+
+    // 5. Create the reservation.
     const result = await pool.query(
       `INSERT INTO reservation.reservation
-         (customer_id, table_id, reservation_date, start_time, end_time, party_size)
-       VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-      [customerId, tableId, reservationDate, startTime, endTime, partySize]
+       (customer_id, table_id, reservation_date,
+        start_time, end_time, party_size)
+       VALUES ($1, $2, $3, $4, $5, $6)
+       RETURNING *`,
+      [
+        customerId,
+        tableId,
+        reservationDate,
+        startTime,
+        endTime,
+        partySize
+      ]
     );
+
+    // 6. Send confirmation email.
     const emailSent = await notify(result.rows[0], 'confirmed');
-    res.status(201).json({ ...result.rows[0], emailSent });
+
+    return res.status(201).json({
+      ...result.rows[0],
+      emailSent
+    });
+
   } catch (err) {
-    handleDbError(err, res);
+    return handleDbError(err, res);
   }
 });
 
-// List: customers see only theirs, staff see all (or filter with ?customerId=)
+// ---------- List reservations ----------
+// Customers see only their own reservations.
+// Staff can see all reservations or filter by customerId.
+
 router.get('/reservations', async (req, res) => {
   const filterId = req.user.role === 'customer'
     ? req.user.customerId
     : (req.query.customerId || null);
+
   try {
     const result = filterId
       ? await pool.query(
-          'SELECT * FROM reservation.reservation WHERE customer_id = $1 ORDER BY reservation_date, start_time',
+          `SELECT *
+           FROM reservation.reservation
+           WHERE customer_id = $1
+           ORDER BY reservation_date, start_time`,
           [filterId]
         )
       : await pool.query(
-          'SELECT * FROM reservation.reservation ORDER BY reservation_date, start_time'
+          `SELECT *
+           FROM reservation.reservation
+           ORDER BY reservation_date, start_time`
         );
-    res.json(result.rows);
+
+    return res.json(result.rows);
+
   } catch (err) {
-    handleDbError(err, res);
+    return handleDbError(err, res);
   }
 });
 
-// View one
+// ---------- View one reservation ----------
+
 router.get('/reservations/:id', async (req, res) => {
   try {
     const result = await pool.query(
-      `SELECT * FROM reservation.reservation
-       WHERE reservation_id = $1 AND ($2::int IS NULL OR customer_id = $2)`,
+      `SELECT *
+       FROM reservation.reservation
+       WHERE reservation_id = $1
+         AND ($2::int IS NULL OR customer_id = $2)`,
       [req.params.id, ownerLimit(req.user)]
     );
-    if (result.rowCount === 0) return res.status(404).json({ error: 'reservation not found' });
-    res.json(result.rows[0]);
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({
+        error: 'reservation not found'
+      });
+    }
+
+    return res.json(result.rows[0]);
+
   } catch (err) {
-    handleDbError(err, res);
+    return handleDbError(err, res);
   }
 });
 
-// Cancel
+// ---------- Cancel reservation ----------
+
 router.patch('/reservations/:id/cancel', async (req, res) => {
   try {
     const result = await pool.query(
-      `UPDATE reservation.reservation SET status = 'cancelled'
-       WHERE reservation_id = $1 AND status = 'confirmed'
+      `UPDATE reservation.reservation
+       SET status = 'cancelled'
+       WHERE reservation_id = $1
+         AND status = 'confirmed'
          AND ($2::int IS NULL OR customer_id = $2)
        RETURNING *`,
       [req.params.id, ownerLimit(req.user)]
     );
+
     if (result.rowCount === 0) {
-      return res.status(404).json({ error: 'no confirmed reservation with that id' });
+      return res.status(404).json({
+        error: 'no confirmed reservation with that id'
+      });
     }
+
     const emailSent = await notify(result.rows[0], 'cancelled');
-    res.json({ ...result.rows[0], emailSent });
+
+    return res.json({
+      ...result.rows[0],
+      emailSent
+    });
+
   } catch (err) {
-    handleDbError(err, res);
+    return handleDbError(err, res);
   }
 });
 
-// Modify
+// ---------- Modify reservation ----------
+
 router.patch('/reservations/:id', async (req, res) => {
-  const { tableId, reservationDate, startTime, endTime, partySize } = req.body;
+  const {
+    tableId,
+    reservationDate,
+    startTime,
+    endTime,
+    partySize
+  } = req.body;
+
   try {
+    // 1. Find the existing reservation.
     const current = await pool.query(
-      `SELECT * FROM reservation.reservation
-       WHERE reservation_id = $1 AND ($2::int IS NULL OR customer_id = $2)`,
+      `SELECT *
+       FROM reservation.reservation
+       WHERE reservation_id = $1
+         AND ($2::int IS NULL OR customer_id = $2)`,
       [req.params.id, ownerLimit(req.user)]
     );
+
     if (current.rowCount === 0) {
-      return res.status(404).json({ error: 'reservation not found' });
+      return res.status(404).json({
+        error: 'reservation not found'
+      });
     }
+
     const old = current.rows[0];
+
     if (old.status !== 'confirmed') {
-      return res.status(400).json({ error: 'only confirmed reservations can be changed' });
+      return res.status(400).json({
+        error: 'only confirmed reservations can be changed'
+      });
     }
 
+    // 2. Use new values if provided, otherwise keep old values.
     const newTable = tableId ?? old.table_id;
-    const newDate  = reservationDate ?? old.reservation_date;
+    const newDate = reservationDate ?? old.reservation_date;
     const newStart = startTime ?? old.start_time;
-    const newEnd   = endTime ?? old.end_time;
-    const newSize  = partySize ?? old.party_size;
+    const newEnd = endTime ?? old.end_time;
+    const newSize = partySize ?? old.party_size;
 
+    // 3. Validate the updated reservation data.
     const errors = validateReservation({
       customerId: old.customer_id,
       tableId: newTable,
       reservationDate: newDate,
       startTime: newStart,
       endTime: newEnd,
-      partySize: newSize,
+      partySize: newSize
     });
+
     if (errors.length) {
       return res.status(400).json({ errors });
     }
 
+    // 4. Check whether the new table exists.
+    const tableCheck = await pool.query(
+      `SELECT capacity, operational_status
+       FROM tables_cfg.restaurant_tables
+       WHERE table_id = $1`,
+      [newTable]
+    );
+
+    if (tableCheck.rowCount === 0) {
+      return res.status(404).json({
+        error: 'table not found'
+      });
+    }
+
+    const table = tableCheck.rows[0];
+
+    // 5. Check whether the table is available for booking.
+    if (table.operational_status !== 'available') {
+      return res.status(400).json({
+        error: 'table is not available for booking'
+      });
+    }
+
+    // 6. Check whether the table capacity is enough.
+    if (newSize > table.capacity) {
+      return res.status(400).json({
+        error: 'party size exceeds table capacity'
+      });
+    }
+
+    // 7. Check for conflicts, excluding the current reservation.
     const clash = await pool.query(
-      `SELECT 1 FROM reservation.reservation
-       WHERE table_id = $1 AND reservation_date = $2 AND status = 'confirmed'
-         AND start_time < $4 AND end_time > $3
+      `SELECT 1
+       FROM reservation.reservation
+       WHERE table_id = $1
+         AND reservation_date = $2
+         AND status = 'confirmed'
+         AND start_time < $4
+         AND end_time > $3
          AND reservation_id <> $5`,
       [newTable, newDate, newStart, newEnd, req.params.id]
     );
+
     if (clash.rowCount > 0) {
-      return res.status(409).json({ error: 'table is already booked at that time' });
+      return res.status(409).json({
+        error: 'table is already booked at that time'
+      });
     }
 
+    // 8. Update the reservation.
     const result = await pool.query(
       `UPDATE reservation.reservation
-       SET table_id = $1, reservation_date = $2, start_time = $3, end_time = $4, party_size = $5
-       WHERE reservation_id = $6 RETURNING *`,
-      [newTable, newDate, newStart, newEnd, newSize, req.params.id]
+       SET table_id = $1,
+           reservation_date = $2,
+           start_time = $3,
+           end_time = $4,
+           party_size = $5
+       WHERE reservation_id = $6
+         AND ($7::int IS NULL OR customer_id = $7)
+       RETURNING *`,
+      [
+        newTable,
+        newDate,
+        newStart,
+        newEnd,
+        newSize,
+        req.params.id,
+        ownerLimit(req.user)
+      ]
     );
-    res.json(result.rows[0]);
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({
+        error: 'reservation not found'
+      });
+    }
+
+    return res.json(result.rows[0]);
+
   } catch (err) {
-    handleDbError(err, res);
+    return handleDbError(err, res);
   }
 });
 
-// Look up the customer and send the right email. Never breaks the request.
+// ---------- Send notification email ----------
+// Email failure does not cancel or undo the reservation.
+
 async function notify(reservation, type) {
   try {
     const c = await pool.query(
-      'SELECT name, email FROM reservation.customer WHERE customer_id = $1',
+      `SELECT name, email
+       FROM reservation.customer
+       WHERE customer_id = $1`,
       [reservation.customer_id]
     );
-    if (c.rowCount === 0) return false;
+
+    if (c.rowCount === 0) {
+      return false;
+    }
+
     return type === 'confirmed'
       ? await sendConfirmation(c.rows[0], reservation)
       : await sendCancellation(c.rows[0], reservation);
+
   } catch (err) {
     console.error('Notify failed:', err.message);
     return false;
   }
 }
 
-// ---------- Turn database errors into clear replies ----------
+// ---------- Database error handling ----------
+
 function handleDbError(err, res) {
-  if (err.code === '23P01') return res.status(409).json({ error: 'table is already booked at that time' });
-  if (err.code === '23505') return res.status(409).json({ error: 'email already registered' });
-  if (err.code === '23503') return res.status(400).json({ error: 'customer does not exist' });
-  if (err.code === '23514') return res.status(400).json({ error: 'invalid values (check party size and times)' });
-  if (err.code && err.code.startsWith('22')) return res.status(400).json({ error: 'wrong data format' });
+  if (err.code === '23P01') {
+    return res.status(409).json({
+      error: 'table is already booked at that time'
+    });
+  }
+
+  if (err.code === '23505') {
+    return res.status(409).json({
+      error: 'email already registered'
+    });
+  }
+
+  if (err.code === '23503') {
+    return res.status(400).json({
+      error: 'customer does not exist'
+    });
+  }
+
+  if (err.code === '23514') {
+    return res.status(400).json({
+      error: 'invalid values (check party size and times)'
+    });
+  }
+
+  if (err.code && err.code.startsWith('22')) {
+    return res.status(400).json({
+      error: 'wrong data format'
+    });
+  }
+
   console.error(err);
-  res.status(500).json({ error: 'server error' });
+
+  return res.status(500).json({
+    error: 'server error'
+  });
 }
 
 module.exports = router;
