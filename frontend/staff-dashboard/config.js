@@ -4,10 +4,10 @@
 // Do not place passwords, database URLs or access tokens in this file.
 window.MARIA_STAFF_CONFIG = {
     apiRoot:
-        "http://03901ab751.execute-api.us-east-1.localhost:4566/api/staff",
-    healthUrl:
-        "http://03901ab751.execute-api.us-east-1.localhost:4566/health",
+    "http://eb501ebec4.execute-api.localhost.floci.io:4566/api/staff",
+healthUrl:
+    "http://eb501ebec4.execute-api.localhost.floci.io:4566/api/staff",
     cognitoEndpoint: "http://localhost:4566/",
-    cognitoClientId: "e8dcd01480564525949aa19fcc",
+    cognitoClientId: "e8df8ddf8a1248b0ac6816772e",
     k6StatusUrl: "http://localhost:6565/v1/status"
 };
